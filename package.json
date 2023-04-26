@@ -5,5 +5,22 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1"
-  }
+  },
+  "name": "api_db_movie",
+  "description": "Test for practice how to create a API rest application",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WSQuintero/API_DB_Movie.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WSQuintero/API_DB_Movie/issues"
+  },
+  "homepage": "https://github.com/WSQuintero/API_DB_Movie#readme"
 }
