@@ -4,12 +4,16 @@ module.exports = {
     es2021: true
   },
   extends: 'standard',
-  overrides: [
-  ],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
+  globals: {
+    axios: 'readonly',
+    API_KEY: 'readonly'
+  },
   rules: {
+    'no-unused-vars': 'off'
   }
 }
