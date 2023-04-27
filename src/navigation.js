@@ -1,6 +1,8 @@
-import { getTrendingMoviesPreview, getCategoriesPreview } from './main'
+import { getTrendingMoviesPreview, getCategoriesPreview } from './main.js'
+
 window.addEventListener('load', navigator, false)
 window.addEventListener('hashchange', navigator, false)
+
 function navigator () {
   console.log(location)
   if (location.hash.startsWith('#trends')) {
