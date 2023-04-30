@@ -12,10 +12,10 @@
     <header id="header" class="header-container">
       <span class="header-arrow inactive">&lt;</span>
       <h1 class="header-title">Movies</h1>
-      <h1 class="header-title header-title--categoryView inactive">Acción</h1>
+      <h1 class="header-title header-title--categoryView inactive"></h1>
       <form id="searchForm" class="header-searchForm">
         <input type="text" placeholder="Vengadores" />
-        <button>🔍</button>
+        <button id="searchBtn">🔍</button>
       </form>
     </header>
     <main>
@@ -37,7 +37,7 @@
       <section id="categoriesPreview" class="categoriesPreview-container">
         <h2 class="categoriesPreview-title">Categorías</h2>
         <article class="categoriesPreview-list">
-          <div class="category-container">
+          <!-- <div class="category-container">
             <h3 id="id28" class="category-title">Romance</h3>
           </div>
           <div class="category-container">
@@ -45,7 +45,7 @@
           </div>
           <div class="category-container">
             <h3 id="id14" class="category-title">Acción</h3>
-          </div>
+          </div> -->
         </article>
       </section>
       <section id="genericList" class="genericList-container inactive">
@@ -79,7 +79,7 @@
           and other bad guys to save a boy's life.
         </p>
         <article class="categories-list">
-          <div class="category-container">
+          <!-- <div class="category-container">
             <h3 id="id28" class="category-title">Romance</h3>
           </div>
           <div class="category-container">
@@ -87,7 +87,7 @@
           </div>
           <div class="category-container">
             <h3 id="id14" class="category-title">Acción</h3>
-          </div>
+          </div> -->
         </article>
         <article class="relatedMovies-container">
           <h2 class="relatedMovies-title">Películas similares</h2>
@@ -118,8 +118,9 @@
       </section>
     </main>
     <footer>Aquí va el footer</footer>
-    <script src="./src/secrets.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js" ></script>
+    <script src="./src/secrets.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="./src/nodes.js"></script>
     <script src="./src/navigation.js" type="module"></script>
     <script src="./src/main.js" type="module"></script>
   </body>

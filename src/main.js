@@ -13,10 +13,10 @@ export async function getTrendingMoviesPreview () {
   const { data } = await api(trendingMovies)
 
   const movies = data.results
+
+  trendingMoviesPreviewList.innerHTML = ''
+
   movies.forEach((movie) => {
-    const trendingPreviewMoviesContainer = document.querySelector(
-      '#trendingPreview .trendingPreview-movieList'
-    )
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
 
@@ -26,7 +26,7 @@ export async function getTrendingMoviesPreview () {
     movieImg.setAttribute('src', `${imagesURL}${movie.poster_path}`)
 
     movieContainer.appendChild(movieImg)
-    trendingPreviewMoviesContainer.appendChild(movieContainer)
+    trendingMoviesPreviewList.appendChild(movieContainer)
   })
 }
 export async function getCategoriesPreview () {
@@ -34,10 +34,8 @@ export async function getCategoriesPreview () {
   const { data } = await api(categoriesMovies)
 
   const categories = data.genres
+  categoriesPreviewList.innerHTML = ''
   categories.forEach((category) => {
-    const categoriesMovieContainer = document.querySelector(
-      '#categoriesPreview .categoriesPreview-list'
-    )
     const categoryContainer = document.createElement('div')
     const categoryTitleText = document.createTextNode(category.name)
     const categoryTitle = document.createElement('h3')
@@ -45,9 +43,36 @@ export async function getCategoriesPreview () {
     categoryContainer.classList.add('category-container')
     categoryTitle.classList.add('category-title')
     categoryTitle.setAttribute('id', `id${category.id}`)
-
+    categoryTitle.addEventListener('click', () => { location.hash = `#category=${category.id}-${category.name}` })
     categoryTitle.appendChild(categoryTitleText)
     categoryContainer.appendChild(categoryTitle)
-    categoriesMovieContainer.appendChild(categoryContainer)
+    categoriesPreviewList.appendChild(categoryContainer)
   })
 }
+export async function getMoviesByCategory (id, category) {
+  const trendingMovies = 'discover/movie'
+  const imagesURL = 'https://image.tmdb.org/t/p/w300'
+  const { data } = await api(trendingMovies, {
+    params: {
+      with_genres: id
+    }
+  })
+
+  const movies = data.results
+  headerCategoryTitle.innerText = category
+  genericSection.innerHTML = ''
+
+  movies.forEach((movie) => {
+    const genericList = document.createElement('div')
+    genericList.classList.add('movie-container')
+
+    const movieImg = document.createElement('img')
+    movieImg.classList.add('movie-img')
+    movieImg.setAttribute('alt', movie.title)
+    movieImg.setAttribute('src', `${imagesURL}${movie.poster_path}`)
+    genericList.appendChild(movieImg)
+    genericSection.appendChild(genericList)
+  })
+}
+
+console.log('hola')
