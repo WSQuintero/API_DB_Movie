@@ -88,8 +88,9 @@ function categoriesPage () {
   movieDetailSection.classList.add('inactive')
   const categoryId = location.hash.replace(/.*category=(\d+)-.*/g, '$1')
   const categoryName = location.hash.replace(/.*category=\d+-(\w+)/g, '$1')
+  headerCategoryTitle.innerText = categoryName
 
-  getMoviesByCategory(Number(categoryId), categoryName)
+  getMoviesByCategory(Number(categoryId))
 }
 function homePage () {
   console.log('HOME')
