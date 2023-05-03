@@ -43,7 +43,8 @@ export async function getCategoriesPreview () {
     categoryContainer.classList.add('category-container')
     categoryTitle.classList.add('category-title')
     categoryTitle.setAttribute('id', `id${category.id}`)
-    categoryTitle.addEventListener('click', () => { location.hash = `#category=${category.id}-${category.name}` })
+
+    categoryTitle.addEventListener('click', () => { location.hash = `#category=${category.id}-${category.name}`; genericSection.innerHTML = ''; window.scrollTo(0, 0) })
     categoryTitle.appendChild(categoryTitleText)
     categoryContainer.appendChild(categoryTitle)
     categoriesPreviewList.appendChild(categoryContainer)

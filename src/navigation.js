@@ -7,7 +7,6 @@ import {
 searchFormBtn.addEventListener('click', () => { location.hash = '#search=' })
 trendingBtn.addEventListener('click', () => { location.hash = '#trends' })
 arrowBtn.addEventListener('click', () => { location.hash = '#home' })
-
 window.addEventListener('load', navigator, false)
 window.addEventListener('hashchange', navigator, false)
 
