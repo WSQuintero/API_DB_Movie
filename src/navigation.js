@@ -48,7 +48,7 @@ function searchPage () {
   headerSection.classList.remove('header-container--long')
   // headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
-  arrowBtn.classList.remove('header-arrow--white')
+  arrowBtn.classList.add('header-arrow--white')
   headerTitle.classList.add('inactive')
   headerCategoryTitle.classList.remove('inactive')
   searchForm.classList.remove('inactive')
