@@ -1,10 +1,11 @@
 import {
   getTrendingMoviesPreview,
   getCategoriesPreview,
-  getMoviesByCategory
+  getMoviesByCategory,
+  getMoviesBySearch
 } from './main.js'
 
-searchFormBtn.addEventListener('click', () => { location.hash = '#search=' })
+searchFormBtn.addEventListener('click', () => { location.hash = `#search=${inputSearch.value}` })
 trendingBtn.addEventListener('click', () => { location.hash = '#trends' })
 arrowBtn.addEventListener('click', () => { location.hash = '#home' })
 window.addEventListener('load', navigator, false)
@@ -31,7 +32,7 @@ function trendsPage () {
   headerSection.classList.remove('header-container--long')
   // headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
-  arrowBtn.classList.remove('header-arrow--white')
+  arrowBtn.classList.add('header-arrow--white')
   headerTitle.classList.add('inactive')
   headerCategoryTitle.classList.remove('inactive')
   searchForm.classList.add('inactive')
@@ -56,6 +57,8 @@ function searchPage () {
   categoriesPreviewSection.classList.add('inactive')
   genericSection.classList.remove('inactive')
   movieDetailSection.classList.add('inactive')
+  console.log(inputSearch.value)
+  getMoviesBySearch(inputSearch.value)
 }
 function moviePage () {
   console.log('MOVIE')
@@ -77,7 +80,7 @@ function categoriesPage () {
   headerSection.classList.remove('header-container--long')
   headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
-  arrowBtn.classList.remove('header-arrow--white')
+  arrowBtn.classList.add('header-arrow--white')
   headerTitle.classList.add('inactive')
   headerCategoryTitle.classList.remove('inactive')
   searchForm.classList.add('inactive')
@@ -93,7 +96,6 @@ function categoriesPage () {
   getMoviesByCategory(Number(categoryId))
 }
 function homePage () {
-  console.log('HOME')
   headerSection.classList.remove('header-container--long')
   headerSection.style.background = ''
   arrowBtn.classList.add('inactive')

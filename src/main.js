@@ -26,24 +26,8 @@ function createMovies (movies, container) {
   })
 }
 
-// llamados a API
-
-export async function getTrendingMoviesPreview () {
-  const trendingMovies = 'trending/movie/day'
-  const { data } = await api(trendingMovies)
-
-  const movies = data.results
-
-  createMovies(movies, trendingMoviesPreviewList)
-}
-
-export async function getCategoriesPreview () {
-  const categoriesMovies = 'genre/movie/list'
-  const { data } = await api(categoriesMovies)
-
-  const categories = data.genres
-  categoriesPreviewList.innerHTML = ''
-
+function createCategories (categories, container) {
+  container.innerHTML = ''
   categories.forEach((category) => {
     const categoryContainer = document.createElement('div')
     const categoryTitleText = document.createTextNode(category.name)
@@ -53,17 +37,50 @@ export async function getCategoriesPreview () {
     categoryTitle.classList.add('category-title')
     categoryTitle.setAttribute('id', `id${category.id}`)
 
-    categoryTitle.addEventListener('click', () => { location.hash = `#category=${category.id}-${category.name}`; genericSection.innerHTML = ''; window.scrollTo(0, 0) })
+    categoryTitle.addEventListener('click', () => {
+      location.hash = `#category=${category.id}-${category.name}`
+      genericSection.innerHTML = ''
+      window.scrollTo(0, 0)
+    })
     categoryTitle.appendChild(categoryTitleText)
     categoryContainer.appendChild(categoryTitle)
-    categoriesPreviewList.appendChild(categoryContainer)
+    container.appendChild(categoryContainer)
   })
+}
+// llamados a API
+
+export async function getTrendingMoviesPreview () {
+  const trendingMovies = 'trending/movie/day'
+  const { data } = await api(trendingMovies)
+
+  const movies = data.results
+  console.log(movies)
+  createMovies(movies, trendingMoviesPreviewList)
+}
+export async function getCategoriesPreview () {
+  const categoriesMovies = 'genre/movie/list'
+  const { data } = await api(categoriesMovies)
+  const categories = data.genres
+
+  createCategories(categories, categoriesPreviewList)
 }
 export async function getMoviesByCategory (id, category) {
   const trendingMovies = 'discover/movie'
   const { data } = await api(trendingMovies, {
     params: {
       with_genres: id
+    }
+  })
+
+  const movies = data.results
+
+  createMovies(movies, genericSection)
+}
+export async function getMoviesBySearch (query) {
+  const searchMovies = 'search/movie'
+  const { data } = await api(searchMovies, {
+    params: {
+      query
     }
   })
 

@@ -35,3 +35,4 @@ const movieDetailDescription = document.querySelector(
   '.movieDetail-description'
 )
 const movieDetailScore = document.querySelector('.movieDetail-score')
+const inputSearch = document.querySelector('.inputSearch')

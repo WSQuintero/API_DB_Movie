@@ -30,7 +30,8 @@ module.exports = {
     trendingBtn: 'readonly',
     movieDetailTitle: 'readonly',
     movieDetailDescription: 'readonly',
-    movieDetailScore: 'readonly'
+    movieDetailScore: 'readonly',
+    inputSearch: 'readonly'
   },
   rules: {
     'no-unused-vars': 'off'
