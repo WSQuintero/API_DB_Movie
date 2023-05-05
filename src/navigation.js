@@ -9,9 +9,17 @@ import {
 
 let count = 0
 
-searchFormBtn.addEventListener('click', () => { location.hash = `#search=${inputSearch.value}` })
-trendingBtn.addEventListener('click', () => { location.hash = '#trends' })
-arrowBtn.addEventListener('click', () => { if (count > 1) history.back(); else location.hash = 'home' })
+searchFormBtn.addEventListener('click', () => {
+  location.hash = `#search=${inputSearch.value}`
+})
+trendingBtn.addEventListener('click', () => {
+  location.hash = '#trends'
+})
+arrowBtn.addEventListener('click', () => {
+  count--
+  if (count > 1) history.back()
+  else location.hash = 'home'
+})
 window.addEventListener('load', navigator, false)
 window.addEventListener('hashchange', navigator, false)
 
@@ -20,7 +28,7 @@ function navigator () {
     trendsPage()
   } else if (location.hash.startsWith('#search=')) {
     searchPage()
-  } else if (location.hash.startsWith('#movie=')) {
+  } else if (location.hash.startsWith('#movie=') && count >= 1) {
     moviePage()
   } else if (location.hash.startsWith('#category=')) {
     categoriesPage()
@@ -28,13 +36,13 @@ function navigator () {
     homePage()
   }
 }
-function trendsPage () {
-  console.log('TRENDS')
 
+function trendsPage () {
   headerSection.classList.remove('header-container--long')
   // headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
   arrowBtn.classList.remove('header-arrow--white')
+  headerSection.style.background = ''
   headerTitle.classList.add('inactive')
   headerCategoryTitle.classList.remove('inactive')
   searchForm.classList.add('inactive')
@@ -48,8 +56,6 @@ function trendsPage () {
   getTrendingMovies()
 }
 function searchPage () {
-  console.log('SEARCH')
-
   headerSection.classList.remove('header-container--long')
   // headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
@@ -67,14 +73,8 @@ function searchPage () {
   getMoviesBySearch(movie)
 }
 export function moviePage (movie) {
-  console.log('MOVIE')
-  location.hash = `movie=${movie.title}`
-  const imagesURL = 'https://image.tmdb.org/t/p/w300'
+  window.scrollTo(0, 0)
   headerSection.classList.add('header-container--long')
-  headerSection.style.background = `url(${imagesURL}${movie.poster_path})`
-  movieDetailTitle.innerText = movie.title
-  movieDetailDescription.innerText = movie.overview
-  movieDetailScore.innerText = movie.vote_average
   arrowBtn.classList.remove('inactive')
   arrowBtn.classList.add('header-arrow--white')
   headerTitle.classList.add('inactive')
@@ -85,11 +85,17 @@ export function moviePage (movie) {
   genericSection.classList.add('inactive')
   movieDetailSection.classList.remove('inactive')
   count++
-  getSimilarMovies(movie.id)
-  console.log(movie)
+  if (movie !== undefined) {
+    const imagesURL = 'https://image.tmdb.org/t/p/w300'
+    location.hash = `movie=${movie.title}`
+    headerSection.style.background = `url(${imagesURL}${movie.poster_path})`
+    movieDetailTitle.innerText = movie.title
+    movieDetailDescription.innerText = movie.overview
+    movieDetailScore.innerText = movie.vote_average
+    getSimilarMovies(movie.id)
+  }
 }
 function categoriesPage () {
-  console.log('CATEGORIES')
   headerSection.classList.remove('header-container--long')
   headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')

@@ -73,10 +73,16 @@ export function selectCorrectMovie (movies) {
   })
 
   function findCorrectImg (event) {
+    const imagesURL = 'https://image.tmdb.org/t/p/w300'
     const ref = event.target.src.split('w300')[1]
     const filterMovie = movies.find((m) => {
       return m.poster_path === ref
     })
+    location.hash = `movie=${filterMovie.title}`
+    headerSection.style.background = `url(${imagesURL}${filterMovie.poster_path})`
+    movieDetailTitle.innerText = filterMovie.title
+    movieDetailDescription.innerText = filterMovie.overview
+    movieDetailScore.innerText = filterMovie.vote_average
     moviePage(filterMovie)
   }
 }
