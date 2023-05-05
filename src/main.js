@@ -1,3 +1,4 @@
+import { moviePage } from './navigation.js'
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
   headers: {
@@ -47,6 +48,39 @@ function createCategories (categories, container) {
     container.appendChild(categoryContainer)
   })
 }
+
+function createSimilarMovies (movies) {
+  relatedMoviesContainer.innerHTML = ''
+  const imagesURL = 'https://image.tmdb.org/t/p/w300'
+  movies.forEach((movie) => {
+    const image = document.createElement('img')
+    const containerImage = document.createElement('div')
+    containerImage.classList.add('movie-container')
+    image.classList.add('movie-img')
+    image.alt = movie.title
+    image.src = `${imagesURL}${movie.poster_path}`
+    containerImage.appendChild(image)
+    relatedMoviesContainer.appendChild(containerImage)
+  })
+}
+
+export function selectCorrectMovie (movies) {
+  const images = Array.from(
+    document.querySelectorAll('.movie-container img')
+  )
+  images.forEach((image) => {
+    image.addEventListener('click', findCorrectImg)
+  })
+
+  function findCorrectImg (event) {
+    const ref = event.target.src.split('w300')[1]
+    const filterMovie = movies.find((m) => {
+      return m.poster_path === ref
+    })
+    moviePage(filterMovie)
+  }
+}
+
 // llamados a API
 
 export async function getTrendingMoviesPreview () {
@@ -54,8 +88,9 @@ export async function getTrendingMoviesPreview () {
   const { data } = await api(trendingMovies)
 
   const movies = data.results
-  console.log(movies)
   createMovies(movies, trendingMoviesPreviewList)
+  selectCorrectMovie(movies)
+  selectCorrectMovie(movies)
 }
 export async function getCategoriesPreview () {
   const categoriesMovies = 'genre/movie/list'
@@ -75,6 +110,7 @@ export async function getMoviesByCategory (id, category) {
   const movies = data.results
 
   createMovies(movies, genericSection)
+  selectCorrectMovie(movies)
 }
 export async function getMoviesBySearch (query) {
   const searchMovies = 'search/movie'
@@ -87,6 +123,19 @@ export async function getMoviesBySearch (query) {
   const movies = data.results
 
   createMovies(movies, genericSection)
+  selectCorrectMovie(movies)
 }
+export async function getTrendingMovies () {
+  const trendingMovies = 'trending/movie/day'
+  const { data } = await api(trendingMovies)
 
-console.log('hola')
+  const movies = data.results
+  createMovies(movies, genericSection)
+  selectCorrectMovie(movies)
+}
+export async function getSimilarMovies (id) {
+  const similarMovies = `/movie/${id}/similar`
+  const { data } = await api(similarMovies)
+  const movies = data.results
+  createSimilarMovies(movies)
+}

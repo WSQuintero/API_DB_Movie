@@ -31,7 +31,8 @@ module.exports = {
     movieDetailTitle: 'readonly',
     movieDetailDescription: 'readonly',
     movieDetailScore: 'readonly',
-    inputSearch: 'readonly'
+    inputSearch: 'readonly',
+    movieSimilarContainer: 'readonly'
   },
   rules: {
     'no-unused-vars': 'off'

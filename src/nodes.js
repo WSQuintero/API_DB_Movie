@@ -36,3 +36,4 @@ const movieDetailDescription = document.querySelector(
 )
 const movieDetailScore = document.querySelector('.movieDetail-score')
 const inputSearch = document.querySelector('.inputSearch')
+const movieSimilarContainer = document.querySelector('movie-container')
