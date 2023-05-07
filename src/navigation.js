@@ -4,7 +4,8 @@ import {
   getMoviesByCategory,
   getMoviesBySearch,
   getTrendingMovies,
-  getSimilarMovies
+  getSimilarMovies,
+  getCategoriesPreviewMovie
 } from './main.js'
 
 let count = 0
@@ -85,10 +86,12 @@ export function moviePage (movie) {
   genericSection.classList.add('inactive')
   movieDetailSection.classList.remove('inactive')
   count++
+
   if (movie !== undefined) {
-    const imagesURL = 'https://image.tmdb.org/t/p/w300'
+    const imagesURL = 'https://image.tmdb.org/t/p/w500'
     location.hash = `movie=${movie.title}`
-    headerSection.style.background = `url(${imagesURL}${movie.poster_path})`
+    headerSection.style.background = `linear-gradient( 180deg, rgba(0, 0, 0, 0.35) 7.27%, rgba(0, 0, 0, 0) 40.17%),
+    url(${imagesURL}${movie.poster_path}) `
     movieDetailTitle.innerText = movie.title
     movieDetailDescription.innerText = movie.overview
     movieDetailScore.innerText = movie.vote_average

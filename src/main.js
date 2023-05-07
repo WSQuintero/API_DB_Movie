@@ -79,6 +79,7 @@ export function selectCorrectMovie (movies) {
       return m.poster_path === ref
     })
     moviePage(filterMovie)
+    getCategoriesPreviewMovie(filterMovie)
   }
 }
 
@@ -139,4 +140,10 @@ export async function getSimilarMovies (id) {
   const { data } = await api(similarMovies)
   const movies = data.results
   createSimilarMovies(movies)
+}
+export async function getCategoriesPreviewMovie (genres) {
+  const categoriesMovies = `movie/${genres.id}`
+  const { data } = await api(categoriesMovies)
+  const categories = data.genres
+  createCategories(categories, movieDetailCategoriesList)
 }
