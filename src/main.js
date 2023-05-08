@@ -29,7 +29,6 @@ function createMovies (movies, container) {
     container.appendChild(movieContainer)
   })
 }
-
 function createCategories (categories, container) {
   container.innerHTML = ''
   categories.forEach((category) => {
@@ -64,9 +63,6 @@ function createMovieDetail (movies) {
   }
 }
 
-export function selectCorrectMovie (movies) {
-
-}
 // llamados a API
 export async function getTrendingMoviesPreview () {
   const trendingMovies = 'trending/movie/day'
@@ -74,7 +70,6 @@ export async function getTrendingMoviesPreview () {
 
   const movies = data.results
   createMovies(movies, trendingMoviesPreviewList)
-  selectCorrectMovie(movies)
 }
 export async function getCategoriesPreview () {
   const categoriesMovies = 'genre/movie/list'
@@ -83,7 +78,7 @@ export async function getCategoriesPreview () {
 
   createCategories(categories, categoriesPreviewList)
 }
-export async function getMoviesByCategory (id, category) {
+export async function getMoviesByCategory (id) {
   const trendingMovies = 'discover/movie'
   const { data } = await api(trendingMovies, {
     params: {
@@ -94,7 +89,6 @@ export async function getMoviesByCategory (id, category) {
   const movies = data.results
 
   createMovies(movies, genericSection)
-  selectCorrectMovie(movies)
 }
 export async function getMoviesBySearch (query) {
   const searchMovies = 'search/movie'
@@ -107,7 +101,6 @@ export async function getMoviesBySearch (query) {
   const movies = data.results
 
   createMovies(movies, genericSection)
-  selectCorrectMovie(movies)
 }
 export async function getTrendingMovies () {
   const trendingMovies = 'trending/movie/day'
@@ -115,14 +108,12 @@ export async function getTrendingMovies () {
 
   const movies = data.results
   createMovies(movies, genericSection)
-  selectCorrectMovie(movies)
 }
 export async function getSimilarMovies (id) {
   const similarMovies = `/movie/${id}/similar`
   const { data } = await api(similarMovies)
   const movies = data.results
   createMovies(movies, relatedMoviesContainer)
-  selectCorrectMovie(movies)
 }
 export async function getCategoriesPreviewMovie (genres) {
   const categoriesMovies = `movie/${genres.id}`
