@@ -5,7 +5,8 @@ import {
   getMoviesBySearch,
   getTrendingMovies,
   getSimilarMovies,
-  getCategoriesPreviewMovie
+  getCategoriesPreviewMovie,
+  getOnlyMovie
 } from './main.js'
 
 let count = 0
@@ -17,10 +18,11 @@ trendingBtn.addEventListener('click', () => {
   location.hash = '#trends'
 })
 arrowBtn.addEventListener('click', () => {
-  count--
-  if (count > 1) history.back()
-  else location.hash = 'home'
+  if (count > 1) {
+    history.back(); count--
+  } else location.hash = 'home'
 })
+
 window.addEventListener('load', navigator, false)
 window.addEventListener('hashchange', navigator, false)
 
@@ -29,7 +31,7 @@ function navigator () {
     trendsPage()
   } else if (location.hash.startsWith('#search=')) {
     searchPage()
-  } else if (location.hash.startsWith('#movie=') && count >= 1) {
+  } else if (location.hash.startsWith('#movie=')) {
     moviePage()
   } else if (location.hash.startsWith('#category=')) {
     categoriesPage()
@@ -73,8 +75,9 @@ function searchPage () {
   count++
   getMoviesBySearch(movie)
 }
-export function moviePage (movie) {
+function moviePage (movie) {
   window.scrollTo(0, 0)
+  const idMovie = location.hash.split('=')
   headerSection.classList.add('header-container--long')
   arrowBtn.classList.remove('inactive')
   arrowBtn.classList.add('header-arrow--white')
@@ -86,17 +89,7 @@ export function moviePage (movie) {
   genericSection.classList.add('inactive')
   movieDetailSection.classList.remove('inactive')
   count++
-
-  if (movie !== undefined) {
-    const imagesURL = 'https://image.tmdb.org/t/p/w500'
-    location.hash = `movie=${movie.title}`
-    headerSection.style.background = `linear-gradient( 180deg, rgba(0, 0, 0, 0.35) 7.27%, rgba(0, 0, 0, 0) 40.17%),
-    url(${imagesURL}${movie.poster_path}) `
-    movieDetailTitle.innerText = movie.title
-    movieDetailDescription.innerText = movie.overview
-    movieDetailScore.innerText = movie.vote_average
-    getSimilarMovies(movie.id)
-  }
+  getOnlyMovie(idMovie[1])
 }
 function categoriesPage () {
   headerSection.classList.remove('header-container--long')

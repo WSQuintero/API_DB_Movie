@@ -1,4 +1,3 @@
-import { moviePage } from './navigation.js'
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
   headers: {
@@ -11,18 +10,21 @@ const api = axios.create({
 })
 
 function createMovies (movies, container) {
+  window.scrollTo(0, 0)
   container.innerHTML = ''
   const imagesURL = 'https://image.tmdb.org/t/p/w300'
 
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
-
+    movieContainer.addEventListener('click', () => {
+      location.hash = `#movie=${movie.id}`
+    })
     const movieImg = document.createElement('img')
     movieImg.classList.add('movie-img')
     movieImg.setAttribute('alt', movie.title)
     movieImg.setAttribute('src', `${imagesURL}${movie.poster_path}`)
-
+    movieImg.id = movie.id
     movieContainer.appendChild(movieImg)
     container.appendChild(movieContainer)
   })
@@ -49,49 +51,29 @@ function createCategories (categories, container) {
     container.appendChild(categoryContainer)
   })
 }
-
-function createSimilarMovies (movies) {
-  relatedMoviesContainer.innerHTML = ''
-  const imagesURL = 'https://image.tmdb.org/t/p/w300'
-  movies.forEach((movie) => {
-    const image = document.createElement('img')
-    const containerImage = document.createElement('div')
-    containerImage.classList.add('movie-container')
-    image.classList.add('movie-img')
-    image.alt = movie.title
-    image.src = `${imagesURL}${movie.poster_path}`
-    containerImage.appendChild(image)
-    relatedMoviesContainer.appendChild(containerImage)
-  })
-}
-
-export function selectCorrectMovie (movies) {
-  const images = Array.from(
-    document.querySelectorAll('.movie-container img')
-  )
-  images.forEach((image) => {
-    image.addEventListener('click', findCorrectImg)
-  })
-
-  function findCorrectImg (event) {
-    const ref = event.target.src.split('w300')[1]
-    const filterMovie = movies.find((m) => {
-      return m.poster_path === ref
-    })
-    moviePage(filterMovie)
-    getCategoriesPreviewMovie(filterMovie)
+function createMovieDetail (movies) {
+  if (movies !== undefined) {
+    const imagesURL = 'https://image.tmdb.org/t/p/w500'
+    headerSection.style.background = `linear-gradient( 180deg, rgba(0, 0, 0, 0.35) 7.27%, rgba(0, 0, 0, 0) 40.17%),
+    url(${imagesURL}${movies.poster_path}) `
+    movieDetailTitle.innerText = movies.title
+    movieDetailDescription.innerText = movies.overview
+    movieDetailScore.innerText = movies.vote_average
+    getSimilarMovies(movies.id)
+    getCategoriesPreviewMovie(movies)
   }
 }
 
-// llamados a API
+export function selectCorrectMovie (movies) {
 
+}
+// llamados a API
 export async function getTrendingMoviesPreview () {
   const trendingMovies = 'trending/movie/day'
   const { data } = await api(trendingMovies)
 
   const movies = data.results
   createMovies(movies, trendingMoviesPreviewList)
-  selectCorrectMovie(movies)
   selectCorrectMovie(movies)
 }
 export async function getCategoriesPreview () {
@@ -139,11 +121,19 @@ export async function getSimilarMovies (id) {
   const similarMovies = `/movie/${id}/similar`
   const { data } = await api(similarMovies)
   const movies = data.results
-  createSimilarMovies(movies)
+  createMovies(movies, relatedMoviesContainer)
+  selectCorrectMovie(movies)
 }
 export async function getCategoriesPreviewMovie (genres) {
   const categoriesMovies = `movie/${genres.id}`
   const { data } = await api(categoriesMovies)
   const categories = data.genres
   createCategories(categories, movieDetailCategoriesList)
+}
+export async function getOnlyMovie (id) {
+  const onlyMovie = `movie/${id}`
+  const { data } = await api(onlyMovie)
+  const movies = data
+
+  createMovieDetail(movies)
 }
