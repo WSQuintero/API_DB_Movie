@@ -9,6 +9,8 @@ import {
   getOnlyMovie
 } from './main.js'
 
+window.addEventListener('load', navigator, false)
+window.addEventListener('hashchange', navigator, false)
 let count = 0
 
 searchFormBtn.addEventListener('click', () => {
@@ -23,9 +25,6 @@ arrowBtn.addEventListener('click', () => {
   } else location.hash = 'home'
 })
 
-window.addEventListener('load', navigator, false)
-window.addEventListener('hashchange', navigator, false)
-
 function navigator () {
   if (location.hash.startsWith('#trends')) {
     trendsPage()
@@ -39,7 +38,6 @@ function navigator () {
     homePage()
   }
 }
-
 function trendsPage () {
   headerSection.classList.remove('header-container--long')
   // headerSection.style.background = ''
