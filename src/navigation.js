@@ -6,7 +6,8 @@ import {
   getTrendingMovies,
   getSimilarMovies,
   getCategoriesPreviewMovie,
-  getOnlyMovie
+  getOnlyMovie,
+  startAnimation
 } from './main.js'
 
 window.addEventListener('load', navigator, false)
@@ -21,7 +22,9 @@ trendingBtn.addEventListener('click', () => {
 })
 arrowBtn.addEventListener('click', () => {
   if (count > 1) {
-    history.back(); count--
+    startAnimation()
+    history.back()
+    count--
   } else location.hash = 'home'
 })
 
@@ -39,6 +42,9 @@ function navigator () {
   }
 }
 function trendsPage () {
+  startAnimation()
+  footer.classList.remove('inactive')
+  html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
   // headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
@@ -53,10 +59,12 @@ function trendsPage () {
   genericSection.classList.remove('inactive')
   movieDetailSection.classList.add('inactive')
   headerCategoryTitle.innerText = 'Tendencias'
-  movieContainer.style.background = 'rgb(219, 219, 219)'
   getTrendingMovies()
 }
 function searchPage () {
+  startAnimation()
+  footer.classList.remove('inactive')
+  html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
   // headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
@@ -74,7 +82,10 @@ function searchPage () {
   getMoviesBySearch(movie)
 }
 function moviePage (movie) {
+  startAnimation()
   window.scrollTo(0, 0)
+  html.style.background = 'rgb(219, 219, 219)'
+  footer.classList.add('inactive')
   const idMovie = location.hash.split('=')
   headerSection.classList.add('header-container--long')
   arrowBtn.classList.remove('inactive')
@@ -90,6 +101,9 @@ function moviePage (movie) {
   getOnlyMovie(idMovie[1])
 }
 function categoriesPage () {
+  startAnimation()
+  footer.classList.remove('inactive')
+  html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
   headerSection.style.background = ''
   arrowBtn.classList.remove('inactive')
@@ -97,10 +111,10 @@ function categoriesPage () {
   headerTitle.classList.add('inactive')
   headerCategoryTitle.classList.remove('inactive')
   searchForm.classList.add('inactive')
+  genericSection.classList.remove('inactive')
 
   trendingPreviewSection.classList.add('inactive')
   categoriesPreviewSection.classList.add('inactive')
-  genericSection.classList.remove('inactive')
   movieDetailSection.classList.add('inactive')
   const categoryId = location.hash.replace(/.*category=(\d+)-.*/g, '$1')
   const categoryName = location.hash.replace(/.*category=\d+-(\w+)/g, '$1')
@@ -109,6 +123,9 @@ function categoriesPage () {
   getMoviesByCategory(Number(categoryId))
 }
 function homePage () {
+  startAnimation()
+  footer.classList.remove('inactive')
+  html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
   headerSection.style.background = ''
   arrowBtn.classList.add('inactive')

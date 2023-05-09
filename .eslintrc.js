@@ -34,7 +34,11 @@ module.exports = {
     inputSearch: 'readonly',
     movieSimilarContainer: 'readonly',
     containerLoad: 'readonly',
-    movieContainer: 'readonly'
+    movieContainer: 'readonly',
+    movieContainerTrending: 'readonly',
+    footer: 'readonly',
+    body: 'readonly',
+    html: 'readonly'
   },
   rules: {
     'no-unused-vars': 'off'

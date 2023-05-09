@@ -149,8 +149,24 @@ footer {
   position: fixed;
   top: 0;
   width: 100%;
+  background-color: rgba(230, 230, 230, 0.5);
 }
-
+.header-container--long2 {
+  height: 480px;
+  width: 100%;
+  background-color: rgba(230, 230, 230, 0.5);
+  position: absolute;
+}
+.header-container--long::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(168, 168, 168, 0.5);
+  animation: opacidad 1s ease-in-out;
+}
 .header-container--categoryView {
   background: linear-gradient(
     180deg,
@@ -222,11 +238,22 @@ footer {
   display: inline-block;
   margin-right: 8px;
   background-color: rgb(219, 219, 219);
+  position: relative;
 }
 .trendingPreview-movieList .movie-container2 {
   display: inline-block;
   margin-right: 8px;
   background-color: rgb(219, 219, 219);
+}
+.trendingPreview-movieList .movie-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(168, 168, 168, 0.5);
+  animation: opacidad 1s ease-in-out;
 }
 
 .trendingPreview-movieList .movie-container .movie-img {
@@ -347,6 +374,7 @@ footer {
 }
 
 .genericList-container .movie-container {
+  position: relative;
   display: inline-block;
   width: 200px;
   height: 400px;
@@ -356,6 +384,16 @@ footer {
   min-width: 150px;
   max-width: 250px;
   background-color: rgb(219, 219, 219);
+}
+.genericList-container .movie-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(168, 168, 168, 0.5);
+  animation: opacidad 1s ease-in-out;
 }
 
 .genericList-container .movie-img {
@@ -417,8 +455,19 @@ footer {
 }
 
 .relatedMovies-scrollContainer .movie-container {
+  position: relative;
   display: inline-block;
   margin-right: 8px;
+}
+.relatedMovies-scrollContainer .movie-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(168, 168, 168, 0.5);
+  animation: opacidad 1s ease-in-out;
 }
 
 .relatedMovies-scrollContainer .movie-img {
@@ -430,6 +479,14 @@ footer {
   max-height: 187.5px;
 }
 
+@keyframes opacidad {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
 /* Footer */
 footer {
   background-color: var(--purple-medium-3);
@@ -499,10 +556,21 @@ footer {
     border-radius: 20px;
   }
   .genericList-container .movie-container {
+    position: relative;
     display: inline-block;
     width: 260px;
   }
 
+  .genericList-container .movie-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(168, 168, 168, 0.5);
+    animation: opacidad 1s ease-in-out;
+  }
   .header-arrow {
     color: white;
   }

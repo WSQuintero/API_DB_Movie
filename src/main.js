@@ -6,7 +6,6 @@ const api = axios.create({
   params: {
     api_key: API_KEY
   }
-
 })
 
 function createMovies (movies, container) {
@@ -28,6 +27,7 @@ function createMovies (movies, container) {
     movieContainer.appendChild(movieImg)
     container.appendChild(movieContainer)
   })
+  stopAnimation()
 }
 function createCategories (categories, container) {
   container.innerHTML = ''
@@ -49,6 +49,7 @@ function createCategories (categories, container) {
     categoryContainer.appendChild(categoryTitle)
     container.appendChild(categoryContainer)
   })
+  stopAnimation()
 }
 function createMovieDetail (movies) {
   if (movies !== undefined) {
@@ -61,6 +62,23 @@ function createMovieDetail (movies) {
     getSimilarMovies(movies.id)
     getCategoriesPreviewMovie(movies)
   }
+  stopAnimation()
+}
+function stopAnimation () {
+  const estilo = document.createElement('style')
+  document.head.appendChild(estilo)
+
+  const regla =
+    '.trendingPreview-movieList .movie-container::before  { animation: none; }'
+  estilo.sheet.insertRule(regla, 0)
+}
+export function startAnimation () {
+  const estilo = document.createElement('style')
+  document.head.appendChild(estilo)
+
+  const regla =
+    '.trendingPreview-movieList .movie-container::before  { animation: opacidad 1s ease-in-out; }'
+  estilo.sheet.insertRule(regla, 0)
 }
 
 // llamados a API
@@ -70,6 +88,7 @@ export async function getTrendingMoviesPreview () {
 
   const movies = data.results
   createMovies(movies, trendingMoviesPreviewList)
+  stopAnimation()
 }
 export async function getCategoriesPreview () {
   const categoriesMovies = 'genre/movie/list'
