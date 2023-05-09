@@ -53,7 +53,7 @@ function trendsPage () {
   genericSection.classList.remove('inactive')
   movieDetailSection.classList.add('inactive')
   headerCategoryTitle.innerText = 'Tendencias'
-
+  movieContainer.style.background = 'rgb(219, 219, 219)'
   getTrendingMovies()
 }
 function searchPage () {

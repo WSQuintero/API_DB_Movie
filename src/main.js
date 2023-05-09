@@ -75,6 +75,7 @@ export async function getCategoriesPreview () {
   const categoriesMovies = 'genre/movie/list'
   const { data } = await api(categoriesMovies)
   const categories = data.genres
+  containerLoad.classList.add('inactive')
 
   createCategories(categories, categoriesPreviewList)
 }
