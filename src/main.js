@@ -8,6 +8,27 @@ const api = axios.create({
   }
 })
 
+function createObserver () {
+  const observer = new IntersectionObserver(callback)
+  const target = document.querySelectorAll('img')
+  // const img = document.querySelectorAll('img')
+
+  target.forEach((img) => {
+    observer.observe(img)
+  })
+
+  function callback (entries, observer) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const lazyImage = entry.target
+        lazyImage.src = lazyImage.dataset.img
+        observer.unobserve(lazyImage)
+        console.log(lazyImage)
+      }
+    })
+  }
+}
+
 function createMovies (movies, container) {
   window.scrollTo(0, 0)
   container.innerHTML = ''
@@ -22,12 +43,14 @@ function createMovies (movies, container) {
     const movieImg = document.createElement('img')
     movieImg.classList.add('movie-img')
     movieImg.setAttribute('alt', movie.title)
-    movieImg.setAttribute('src', `${imagesURL}${movie.poster_path}`)
+    movieImg.setAttribute('data-img', `${imagesURL}${movie.poster_path}`)
+    movieImg.setAttribute('loading', 'lazy')
     movieImg.id = movie.id
     movieContainer.appendChild(movieImg)
     container.appendChild(movieContainer)
   })
   stopAnimation()
+  createObserver()
 }
 function createCategories (categories, container) {
   container.innerHTML = ''
