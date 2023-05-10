@@ -9,15 +9,7 @@ const api = axios.create({
 })
 
 function createObserver () {
-  const observer = new IntersectionObserver(callback)
-  const target = document.querySelectorAll('img')
-  // const img = document.querySelectorAll('img')
-
-  target.forEach((img) => {
-    observer.observe(img)
-  })
-
-  function callback (entries, observer) {
+  const callback = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const lazyImage = entry.target
@@ -27,6 +19,12 @@ function createObserver () {
       }
     })
   }
+  const observer = new IntersectionObserver(callback)
+  const target = document.querySelectorAll('img')
+
+  target.forEach((img) => {
+    observer.observe(img)
+  })
 }
 
 function createMovies (movies, container) {
