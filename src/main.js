@@ -7,6 +7,7 @@ const api = axios.create({
     api_key: API_KEY
   }
 })
+let page1 = 1
 
 function createObserver () {
   const callback = (entries, observer) => {
@@ -31,6 +32,20 @@ function validateImageComplete (img, containerImg, generalContainer) {
     }
   })
 }
+function createFavoriteButton (container) {
+  const likeButton = document.createElement('div')
+  likeButton.classList.add('like__button')
+  const svgImg = document.createElement('img')
+  svgImg.classList.add('like__button--img')
+  svgImg.src = '../svg/likeUnSelected.svg'
+  likeButton.appendChild(svgImg)
+  container.appendChild(likeButton)
+
+  svgImg.addEventListener('click', () => {
+    svgImg.src = '../svg/likeSelected.svg'
+    console.log('si')
+  })
+}
 function createMovies (movies, container) {
   window.scrollTo(0, 0)
   container.innerHTML = ''
@@ -39,9 +54,7 @@ function createMovies (movies, container) {
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
-    movieContainer.addEventListener('click', () => {
-      location.hash = `#movie=${movie.id}`
-    })
+
     const movieImg = document.createElement('img')
     movieImg.classList.add('movie-img')
     createObserver().observe(movieContainer)
@@ -51,6 +64,12 @@ function createMovies (movies, container) {
       movieImg.id = movie.id
       movieImg.setAttribute('alt', movie.title)
       movieContainer.appendChild(movieImg)
+
+      movieImg.addEventListener('click', (event) => {
+        location.hash = `#movie=${movie.id}`
+      })
+
+      createFavoriteButton(movieContainer)
       validateImageComplete(movieImg, movieContainer, container)
     } else {
       movieContainer.innerHTML = `<h2>${movie.title}</h2>`
@@ -58,6 +77,7 @@ function createMovies (movies, container) {
       movieContainer.style.background = '#2a0646'
       movieContainer.style.display = 'grid'
       movieContainer.style.placeItems = 'center'
+      createFavoriteButton(movieContainer)
     }
 
     container.appendChild(movieContainer)
@@ -122,6 +142,14 @@ function createMovieDetail (movies) {
   }
 }
 
+function createButtonShowMore (container, generalContainer, link) {
+  buttonShowMore.classList.add('buttonShowMore')
+  buttonShowMore.innerText = 'Mostrar más'
+  container.classList.add('containerMovies')
+  generalContainer.insertAdjacentElement('beforeend', buttonShowMore)
+  getNewPage(container, generalContainer, link)
+}
+
 // llamados a API
 export async function getTrendingMoviesPreview () {
   const trendingMovies = 'trending/movie/day'
@@ -139,16 +167,21 @@ export async function getCategoriesPreview () {
   createCategories(categories, categoriesPreviewList)
 }
 export async function getMoviesByCategory (id) {
+  page1 = 1
   const trendingMovies = 'discover/movie'
   const { data } = await api(trendingMovies, {
     params: {
-      with_genres: id
+      with_genres: id,
+      page: page1
     }
   })
 
   const movies = data.results
+  genericSection.appendChild(containerMovies)
 
-  createMovies(movies, genericSection)
+  createMovies(movies, containerMovies)
+  createButtonShowMore(containerMovies, genericSection, trendingMovies)
+  page1 = 2
 }
 export async function getMoviesBySearch (query) {
   const searchMovies = 'search/movie'
@@ -160,14 +193,41 @@ export async function getMoviesBySearch (query) {
 
   const movies = data.results
 
-  createMovies(movies, genericSection)
+  createMovies(movies, containerMovies)
 }
-export async function getTrendingMovies () {
+export async function getTrendingMovies (page) {
   const trendingMovies = 'trending/movie/day'
-  const { data } = await api(trendingMovies)
 
+  const { data } = await api(trendingMovies, {
+    params: {
+      page: 1
+    }
+  })
   const movies = data.results
-  createMovies(movies, genericSection)
+  genericSection.appendChild(containerMovies)
+  createMovies(movies, containerMovies)
+  createButtonShowMore(containerMovies, genericSection, trendingMovies)
+  page1 = 2
+}
+function getNewPage (container, generalContainer, link) {
+  buttonShowMore.addEventListener('click', async () => {
+    container.innerHTML = ''
+    const generalLink = link
+
+    const { data } = await api(generalLink, {
+      params: {
+        page: page1
+      }
+    })
+    page1++
+    const movies = data.results
+
+    generalContainer.appendChild(container)
+    createMovies(movies, container)
+
+    console.log(page1)
+    generalContainer.insertAdjacentElement('beforeend', buttonShowMore)
+  })
 }
 export async function getSimilarMovies (id) {
   const similarMovies = `/movie/${id}/similar`

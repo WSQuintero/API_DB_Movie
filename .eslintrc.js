@@ -38,7 +38,10 @@ module.exports = {
     movieContainerTrending: 'readonly',
     footer: 'readonly',
     body: 'readonly',
-    html: 'readonly'
+    html: 'readonly',
+    buttonShowMore: 'readonly',
+    containerMovies: 'readonly',
+    favorites: 'readonly'
   },
   rules: {
     'no-unused-vars': 'off'

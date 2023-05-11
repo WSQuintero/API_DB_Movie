@@ -6,6 +6,7 @@ import {
   getTrendingMovies,
   getOnlyMovie,
   deleteNullImg
+
 } from './main.js'
 
 let count = 0
@@ -57,6 +58,8 @@ function trendsPage () {
   genericSection.classList.remove('inactive')
   movieDetailSection.classList.add('inactive')
   headerCategoryTitle.innerText = 'Tendencias'
+  favorites.classList.add('inactive')
+
   getTrendingMovies()
 }
 function searchPage () {
@@ -74,6 +77,8 @@ function searchPage () {
   categoriesPreviewSection.classList.add('inactive')
   genericSection.classList.remove('inactive')
   movieDetailSection.classList.add('inactive')
+  favorites.classList.add('inactive')
+
   const movie = location.hash.split('=')[1]
   count++
   getMoviesBySearch(movie)
@@ -93,6 +98,8 @@ function moviePage (movie) {
   categoriesPreviewSection.classList.add('inactive')
   genericSection.classList.add('inactive')
   movieDetailSection.classList.remove('inactive')
+  favorites.classList.add('inactive')
+
   count++
   getOnlyMovie(idMovie[1])
 }
@@ -111,6 +118,8 @@ function categoriesPage () {
   trendingPreviewSection.classList.add('inactive')
   categoriesPreviewSection.classList.add('inactive')
   movieDetailSection.classList.add('inactive')
+  favorites.classList.add('inactive')
+
   const categoryId = location.hash.replace(/.*category=(\d+)-.*/g, '$1')
   const categoryName = location.hash.replace(/.*category=\d+-(\w+)/g, '$1')
   headerCategoryTitle.innerText = categoryName
@@ -131,6 +140,8 @@ function homePage () {
   categoriesPreviewSection.classList.remove('inactive')
   genericSection.classList.add('inactive')
   movieDetailSection.classList.add('inactive')
+  favorites.classList.remove('inactive')
+
   getTrendingMoviesPreview()
   getCategoriesPreview()
 }

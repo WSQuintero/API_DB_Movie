@@ -114,15 +114,25 @@ footer {
 
 .movie-container {
   cursor: pointer;
+  position: relative;
+  z-index: 0;
+}
+.containerMovies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
 .charge-end {
   cursor: pointer;
+  z-index: 0;
 }
 .movie-container2 {
   background-color: rgb(219, 219, 219);
 }
 .movie-img {
   border-radius: 8px;
+  z-index: 1;
 }
 
 .categoriesPreview-list,
@@ -239,11 +249,13 @@ footer {
   display: inline-block;
   margin-right: 8px;
   position: relative;
+  z-index: 0;
 }
 .trendingPreview-movieList .charge-end {
   display: inline-block;
   margin-right: 8px;
   position: relative;
+  z-index: 0;
 }
 
 .trendingPreview-movieList.loading .movie-container::before {
@@ -264,6 +276,7 @@ footer {
   width: 250px;
   min-width: 150px;
   max-width: 250px;
+  z-index: 1;
 }
 
 .trendingPreview-movieList .charge-end .movie-img {
@@ -273,6 +286,7 @@ footer {
   width: 250px;
   min-width: 150px;
   max-width: 250px;
+  z-index: 1;
 }
 /* Categories */
 .category-container {
@@ -374,12 +388,11 @@ footer {
 
 /* Generic List (search, trending & category) */
 .genericList-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
   padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .genericList-container .movie-container {
@@ -392,6 +405,7 @@ footer {
   width: 250px;
   min-width: 150px;
   max-width: 250px;
+  z-index: 0;
 }
 
 .genericList-container .charge-end {
@@ -404,6 +418,7 @@ footer {
   width: 250px;
   min-width: 150px;
   max-width: 250px;
+  z-index: 0;
 }
 .genericList-container.loading .movie-container::before {
   content: "";
@@ -419,10 +434,19 @@ footer {
 .genericList-container .movie-img {
   width: 100%;
   height: 100%;
+  z-index: 1;
 }
 .genericList-container .charge-end.movie-img {
   width: 100%;
   height: 100%;
+  z-index: 1;
+}
+.buttonShowMore {
+  display: inline-block;
+  width: 200px;
+  height: 30px;
+  border-radius: 10px;
+  font-weight: 700;
 }
 
 /* Movie Detail */
@@ -491,6 +515,7 @@ footer {
   max-height: 187.5px;
   white-space: normal;
   text-align: center;
+  z-index: 0;
 }
 .relatedMovies-scrollContainer .charge-end {
   position: relative;
@@ -503,7 +528,18 @@ footer {
   max-height: 187.5px;
   white-space: normal;
   text-align: center;
+  z-index: 0;
 }
+
+.relatedMovies-scrollContainer .charge-end .like__button--img  {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(-2px 3px 2px #131313);
+  color: #696969;
+  flex-shrink: 0;
+  transition: transform 1s;
+}
+
 .relatedMovies-scrollContainer.loading .movie-container::before {
   content: "";
   position: absolute;
@@ -522,6 +558,7 @@ footer {
   height: 187.5px;
   min-height: 187.5px;
   max-height: 187.5px;
+  z-index: 1;
 }
 .relatedMovies-scrollContainer .charge-end.movie-img {
   width: 125px;
@@ -530,6 +567,7 @@ footer {
   height: 187.5px;
   min-height: 187.5px;
   max-height: 187.5px;
+  z-index: 1;
 }
 .movie-else-img {
   margin-right: 8px;
@@ -555,6 +593,94 @@ footer {
     width: 100%;
   }
 }
+/*sección favoritos*/
+.favorites {
+  height: 500px;
+  margin-top: 20px;
+  background-color: #d1b5ff;
+}
+.favorites-header {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+}
+
+.favorites-btn {
+  width: 100px;
+  height: 30px;
+  color: white;
+  font-weight: 700;
+  border-radius: 15px;
+}
+.favorites-movieList {
+  width: 100%;
+  height: 80%;
+  margin-top: 10px;
+  background-color: #2a0646;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  padding-left: 40px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.favorites-movieList .movie-container {
+  width: 250px;
+  height: 90%;
+  flex-shrink: 0;
+  display: flex;
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
+}
+.favorite__img {
+  width: 100%;
+  height: 100%;
+  background-color: #2e48a3;
+  border-radius: 40px;
+  z-index: 1;
+}
+.favorites__deleteFavorite {
+  padding: 15px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  border-bottom-left-radius: 15px;
+}
+.like__button {
+  width: 50px;
+  height: 50px;
+  padding: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-image: url("../svg/like-placeholder-svgrepo-com.svg"); */
+}
+.like__button--img {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(-2px 3px 2px #131313);
+  color: #696969;
+  flex-shrink: 0;
+  transition: transform 1s;
+}
+.like__button--img:active{
+  transform: scale(2);
+  fill: red;
+}
+
 /* Footer */
 footer {
   background-color: var(--purple-medium-3);
@@ -626,11 +752,13 @@ footer {
     position: relative;
     display: inline-block;
     width: 260px;
+    z-index: 0;
   }
   .genericList-container .charge-end {
     position: relative;
     display: inline-block;
     width: 260px;
+    z-index: 0;
   }
 
   .genericList-container.loading .movie-container::before {

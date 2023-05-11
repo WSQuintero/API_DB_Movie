@@ -4,7 +4,7 @@ const trendingPreviewSection = document.querySelector('#trendingPreview')
 const categoriesPreviewSection = document.querySelector('#categoriesPreview')
 const genericSection = document.querySelector('#genericList')
 const movieDetailSection = document.querySelector('#movieDetail')
-
+const favorites = document.querySelector('.favorites')
 // Lists & Containers
 const searchForm = document.querySelector('#searchForm')
 const trendingMoviesPreviewList = document.querySelector(
@@ -50,3 +50,6 @@ const containerLoad = document.querySelector('.containerLoad')
 const movieContainer = document.querySelector('.movie-container')
 const html = document.querySelector('html')
 const footer = document.querySelector('footer')
+const body = document.querySelector('body')
+const buttonShowMore = document.createElement('button')
+const containerMovies = document.createElement('div')
