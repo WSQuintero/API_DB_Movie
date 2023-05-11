@@ -4,18 +4,14 @@ import {
   getMoviesByCategory,
   getMoviesBySearch,
   getTrendingMovies,
-  getSimilarMovies,
-  getCategoriesPreviewMovie,
   getOnlyMovie,
-  startAnimation,
   deleteNullImg
-
 } from './main.js'
+
+let count = 0
 
 window.addEventListener('load', navigator, false)
 window.addEventListener('hashchange', navigator, false)
-let count = 0
-
 searchFormBtn.addEventListener('click', () => {
   location.hash = `#search=${inputSearch.value}`
 })

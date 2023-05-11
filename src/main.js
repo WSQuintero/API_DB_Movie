@@ -62,8 +62,6 @@ function createMovies (movies, container) {
 
     container.appendChild(movieContainer)
   })
-
-  createObserver()
 }
 function createCategories (categories, container) {
   container.innerHTML = ''
@@ -122,12 +120,6 @@ function createMovieDetail (movies) {
     getSimilarMovies(movies.id)
     getCategoriesPreviewMovie(movies)
   }
-}
-// function stopAnimation (container) {
-//   container.classList.remove('loading')
-// }
-export function startAnimation (container) {
-  container.classList.add('loading')
 }
 
 // llamados a API
