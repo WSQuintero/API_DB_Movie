@@ -37,12 +37,12 @@ function createFavoriteButton (container) {
   likeButton.classList.add('like__button')
   const svgImg = document.createElement('img')
   svgImg.classList.add('like__button--img')
-  svgImg.src = '../svg/likeUnSelected.svg'
+  svgImg.src = './svg/likeUnSelected.svg'
   likeButton.appendChild(svgImg)
   container.appendChild(likeButton)
 
   svgImg.addEventListener('click', () => {
-    svgImg.src = '/svg/likeSelected.svg'
+    svgImg.src = './svg/likeSelected.svg'
     console.log('si')
   })
 }
@@ -72,6 +72,9 @@ function createMovies (movies, container) {
       createFavoriteButton(movieContainer)
       validateImageComplete(movieImg, movieContainer, container)
     } else {
+      movieContainer.addEventListener('click', (event) => {
+        location.hash = `#movie=${movie.id}`
+      })
       movieContainer.innerHTML = `<h2>${movie.title}</h2>`
       movieContainer.classList.add('movie-else-img')
       movieContainer.style.background = '#2a0646'
