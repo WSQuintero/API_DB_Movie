@@ -7,7 +7,9 @@ import {
   getSimilarMovies,
   getCategoriesPreviewMovie,
   getOnlyMovie,
-  startAnimation
+  startAnimation,
+  deleteNullImg
+
 } from './main.js'
 
 window.addEventListener('load', navigator, false)
@@ -22,8 +24,9 @@ trendingBtn.addEventListener('click', () => {
 })
 arrowBtn.addEventListener('click', () => {
   if (count > 1) {
-    startAnimation()
+    deleteNullImg()
     history.back()
+    arrowBtn.classList.remove('header-arrow--white')
     count--
   } else location.hash = 'home'
 })
@@ -42,7 +45,6 @@ function navigator () {
   }
 }
 function trendsPage () {
-  startAnimation()
   footer.classList.remove('inactive')
   html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
@@ -62,7 +64,6 @@ function trendsPage () {
   getTrendingMovies()
 }
 function searchPage () {
-  startAnimation()
   footer.classList.remove('inactive')
   html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
@@ -70,7 +71,7 @@ function searchPage () {
   arrowBtn.classList.remove('inactive')
   arrowBtn.classList.remove('header-arrow--white')
   headerTitle.classList.add('inactive')
-  headerCategoryTitle.classList.remove('inactive')
+  headerCategoryTitle.classList.add('inactive')
   searchForm.classList.remove('inactive')
   headerSection.style.background = ''
   trendingPreviewSection.classList.add('inactive')
@@ -82,7 +83,6 @@ function searchPage () {
   getMoviesBySearch(movie)
 }
 function moviePage (movie) {
-  startAnimation()
   window.scrollTo(0, 0)
   html.style.background = 'rgb(219, 219, 219)'
   footer.classList.add('inactive')
@@ -101,7 +101,6 @@ function moviePage (movie) {
   getOnlyMovie(idMovie[1])
 }
 function categoriesPage () {
-  startAnimation()
   footer.classList.remove('inactive')
   html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
@@ -123,7 +122,6 @@ function categoriesPage () {
   getMoviesByCategory(Number(categoryId))
 }
 function homePage () {
-  startAnimation()
   footer.classList.remove('inactive')
   html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')

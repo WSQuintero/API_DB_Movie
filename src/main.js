@@ -12,21 +12,25 @@ function createObserver () {
   const callback = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const lazyImage = entry.target
+        const father = entry.target.parentNode
+        father.classList.add('loading')
+        const lazyImage = entry.target.querySelector('img')
         lazyImage.src = lazyImage.dataset.img
         observer.unobserve(lazyImage)
-        console.log(lazyImage)
       }
     })
   }
-  const observer = new IntersectionObserver(callback)
-  const target = document.querySelectorAll('img')
-
-  target.forEach((img) => {
-    observer.observe(img)
+  return new IntersectionObserver(callback)
+}
+function validateImageComplete (img, containerImg, generalContainer) {
+  img.addEventListener('load', () => {
+    if (img.complete) {
+      generalContainer.classList.remove('loading')
+      containerImg.classList.add('charge-end')
+      containerImg.classList.remove('movie-container')
+    }
   })
 }
-
 function createMovies (movies, container) {
   window.scrollTo(0, 0)
   container.innerHTML = ''
@@ -40,14 +44,25 @@ function createMovies (movies, container) {
     })
     const movieImg = document.createElement('img')
     movieImg.classList.add('movie-img')
-    movieImg.setAttribute('alt', movie.title)
-    movieImg.setAttribute('data-img', `${imagesURL}${movie.poster_path}`)
-    movieImg.setAttribute('loading', 'lazy')
-    movieImg.id = movie.id
-    movieContainer.appendChild(movieImg)
+    createObserver().observe(movieContainer)
+    if (movie.poster_path !== null) {
+      movieImg.setAttribute('data-img', `${imagesURL}${movie.poster_path}`)
+      movieImg.setAttribute('loading', 'lazy')
+      movieImg.id = movie.id
+      movieImg.setAttribute('alt', movie.title)
+      movieContainer.appendChild(movieImg)
+      validateImageComplete(movieImg, movieContainer, container)
+    } else {
+      movieContainer.innerHTML = `<h2>${movie.title}</h2>`
+      movieContainer.classList.add('movie-else-img')
+      movieContainer.style.background = '#2a0646'
+      movieContainer.style.display = 'grid'
+      movieContainer.style.placeItems = 'center'
+    }
+
     container.appendChild(movieContainer)
   })
-  stopAnimation()
+
   createObserver()
 }
 function createCategories (categories, container) {
@@ -70,36 +85,49 @@ function createCategories (categories, container) {
     categoryContainer.appendChild(categoryTitle)
     container.appendChild(categoryContainer)
   })
-  stopAnimation()
+}
+function createNullImg (movies) {
+  const tittle = document.createElement('h2')
+  tittle.classList.remove('inactive')
+  tittle.classList.add('tittle')
+  headerSection.style.background = '#2a0646'
+  tittle.innerText = movies.original_title
+  tittle.style.color = 'white'
+  tittle.style.textAlign = 'center'
+  tittle.style.fontSize = '60px'
+  headerSection.appendChild(tittle)
+  headerSection.style.color = 'white'
+}
+export function deleteNullImg () {
+  const h2 = document.querySelector('header h2')
+  if (h2) {
+    h2.remove()
+  }
 }
 function createMovieDetail (movies) {
   if (movies !== undefined) {
     const imagesURL = 'https://image.tmdb.org/t/p/w500'
-    headerSection.style.background = `linear-gradient( 180deg, rgba(0, 0, 0, 0.35) 7.27%, rgba(0, 0, 0, 0) 40.17%),
+    if (movies.poster_path !== null) {
+      deleteNullImg()
+      headerSection.style.background = `linear-gradient( 180deg, rgba(0, 0, 0, 0.35) 7.27%, rgba(0, 0, 0, 0) 40.17%),
     url(${imagesURL}${movies.poster_path}) `
+    } else {
+      deleteNullImg()
+      createNullImg(movies)
+    }
     movieDetailTitle.innerText = movies.title
     movieDetailDescription.innerText = movies.overview
     movieDetailScore.innerText = movies.vote_average
+
     getSimilarMovies(movies.id)
     getCategoriesPreviewMovie(movies)
   }
-  stopAnimation()
 }
-function stopAnimation () {
-  const estilo = document.createElement('style')
-  document.head.appendChild(estilo)
-
-  const regla =
-    '.trendingPreview-movieList .movie-container::before  { animation: none; }'
-  estilo.sheet.insertRule(regla, 0)
-}
-export function startAnimation () {
-  const estilo = document.createElement('style')
-  document.head.appendChild(estilo)
-
-  const regla =
-    '.trendingPreview-movieList .movie-container::before  { animation: opacidad 1s ease-in-out; }'
-  estilo.sheet.insertRule(regla, 0)
+// function stopAnimation (container) {
+//   container.classList.remove('loading')
+// }
+export function startAnimation (container) {
+  container.classList.add('loading')
 }
 
 // llamados a API
@@ -109,7 +137,6 @@ export async function getTrendingMoviesPreview () {
 
   const movies = data.results
   createMovies(movies, trendingMoviesPreviewList)
-  stopAnimation()
 }
 export async function getCategoriesPreview () {
   const categoriesMovies = 'genre/movie/list'
