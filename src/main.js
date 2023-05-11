@@ -42,7 +42,7 @@ function createFavoriteButton (container) {
   container.appendChild(likeButton)
 
   svgImg.addEventListener('click', () => {
-    svgImg.src = '../svg/likeSelected.svg'
+    svgImg.src = '/svg/likeSelected.svg'
     console.log('si')
   })
 }
