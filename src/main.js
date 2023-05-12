@@ -9,6 +9,8 @@ const api = axios.create({
 })
 let page1 = 1
 
+let favoritesMovies =
+  JSON.parse(localStorage.getItem('favoritesMovies')) || []
 function createObserver () {
   const callback = (entries, observer) => {
     entries.forEach((entry) => {
@@ -32,20 +34,62 @@ function validateImageComplete (img, containerImg, generalContainer) {
     }
   })
 }
-function createFavoriteButton (container) {
+
+function createFavoriteButton (
+  container,
+  { movieImg, movieId, movieTitle },
+  isClicked
+) {
   const likeButton = document.createElement('div')
-  likeButton.classList.add('like__button')
   const svgImg = document.createElement('img')
+  let clicked = false
+
   svgImg.classList.add('like__button--img')
   svgImg.src = './svg/likeUnSelected.svg'
+  likeButton.classList.add('like__button')
   likeButton.appendChild(svgImg)
   container.appendChild(likeButton)
 
-  svgImg.addEventListener('click', () => {
-    svgImg.src = './svg/likeSelected.svg'
-    console.log('si')
-  })
+  svgImg.addEventListener('click', clickFavorite)
+
+  const findClicked = favoritesMovies.some((id) => id.movieId === movieId)
+  console.log(findClicked)
+  function clickFavorite () {
+    if (clicked === false) {
+      svgImg.src = './svg/likeSelected.svg'
+      clicked = true
+
+      if (!findClicked) {
+        favoritesMovies.push({
+          movieImg: movieImg.src,
+          movieId,
+          movieTitle,
+          clicked: true
+        })
+        addNewFavoriteMovie()
+        console.log('no está')
+      }
+    } else {
+      svgImg.src = './svg/likeUnSelected.svg'
+      clicked = false
+      const favoritesMoviesUnSelected = favoritesMovies.filter(
+        (favorite) => { console.log(favorite.movieId !== movieId); return favorite.movieId !== movieId }
+      )
+      favoritesMovies = favoritesMoviesUnSelected
+      addNewFavoriteMovie()
+    }
+  }
+
+  if (isClicked !== undefined) {
+    clicked = false
+    clickFavorite()
+  }
 }
+function addNewFavoriteMovie () {
+  const favoriteMovie = JSON.stringify(favoritesMovies)
+  localStorage.setItem('favoritesMovies', favoriteMovie)
+}
+
 function createMovies (movies, container) {
   window.scrollTo(0, 0)
   container.innerHTML = ''
@@ -68,8 +112,16 @@ function createMovies (movies, container) {
       movieImg.addEventListener('click', (event) => {
         location.hash = `#movie=${movie.id}`
       })
-
-      createFavoriteButton(movieContainer)
+      const isClicked = favoritesMovies.find((mov) => mov.movieId === movie.id)
+      createFavoriteButton(
+        movieContainer,
+        {
+          movieImg,
+          movieId: movie.id,
+          movieTitle: movie.title
+        },
+        isClicked
+      )
       validateImageComplete(movieImg, movieContainer, container)
     } else {
       movieContainer.addEventListener('click', (event) => {
@@ -196,7 +248,7 @@ export async function getMoviesBySearch (query) {
 
   const movies = data.results
 
-  createMovies(movies, containerMovies)
+  createMovies(movies, genericSection)
 }
 export async function getTrendingMovies (page) {
   const trendingMovies = 'trending/movie/day'
@@ -228,7 +280,6 @@ function getNewPage (container, generalContainer, link) {
     generalContainer.appendChild(container)
     createMovies(movies, container)
 
-    console.log(page1)
     generalContainer.insertAdjacentElement('beforeend', buttonShowMore)
   })
 }

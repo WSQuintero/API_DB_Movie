@@ -390,9 +390,10 @@ footer {
 .genericList-container {
   padding: 32px 24px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .genericList-container .movie-container {
@@ -406,6 +407,7 @@ footer {
   min-width: 150px;
   max-width: 250px;
   z-index: 0;
+  flex-shrink: 1;
 }
 
 .genericList-container .charge-end {
@@ -419,6 +421,7 @@ footer {
   min-width: 150px;
   max-width: 250px;
   z-index: 0;
+  flex-shrink: 1;
 }
 .genericList-container.loading .movie-container::before {
   content: "";
@@ -537,7 +540,7 @@ footer {
   filter: drop-shadow(-2px 3px 2px #131313);
   color: #696969;
   flex-shrink: 0;
-  transition: transform 1s;
+  transition: transform 0.5s ease-in-out;
 }
 
 .relatedMovies-scrollContainer.loading .movie-container::before {
@@ -653,6 +656,7 @@ footer {
   position: absolute;
   right: 0;
   border-bottom-left-radius: 15px;
+  z-index: 4;
 }
 .like__button {
   width: 50px;
@@ -674,10 +678,10 @@ footer {
   filter: drop-shadow(-2px 3px 2px #131313);
   color: #696969;
   flex-shrink: 0;
-  transition: transform 1s;
+  transition: transform 1s ease-in-out;
 }
 .like__button--img:active{
-  transform: scale(2);
+  transform: scale(3);
   fill: red;
 }
 
@@ -769,7 +773,7 @@ footer {
     width: 0%;
     height: 100%;
     background-color: rgba(168, 168, 168, 0.5);
-    animation: opacidad 1s ease-in-out infinite;
+    animation: opacidad 0.4s ease-in-out infinite;
   }
   .header-arrow {
     color: white;
