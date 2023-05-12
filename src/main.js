@@ -81,7 +81,6 @@ function addNewFavoriteMovie () {
 }
 
 function createMovies (movies, container) {
-  window.scrollTo(0, 0)
   container.innerHTML = ''
   const imagesURL = 'https://image.tmdb.org/t/p/w300'
 
