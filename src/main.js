@@ -9,8 +9,7 @@ const api = axios.create({
 })
 let page1 = 1
 
-let favoritesMovies =
-  JSON.parse(localStorage.getItem('favoritesMovies')) || []
+let favoritesMovies = JSON.parse(localStorage.getItem('favoritesMovies')) || []
 function createObserver () {
   const callback = (entries, observer) => {
     entries.forEach((entry) => {
@@ -35,11 +34,7 @@ function validateImageComplete (img, containerImg, generalContainer) {
   })
 }
 
-function createFavoriteButton (
-  container,
-  { movieImg, movieId, movieTitle },
-  isClicked
-) {
+function createFavoriteButton (container, movie, isClicked) {
   const likeButton = document.createElement('div')
   const svgImg = document.createElement('img')
   let clicked = false
@@ -51,31 +46,26 @@ function createFavoriteButton (
   container.appendChild(likeButton)
 
   svgImg.addEventListener('click', clickFavorite)
+  const findClicked = favoritesMovies.some((id) => id.id === movie.id)
 
-  const findClicked = favoritesMovies.some((id) => id.movieId === movieId)
-  console.log(findClicked)
   function clickFavorite () {
     if (clicked === false) {
       svgImg.src = './svg/likeSelected.svg'
       clicked = true
 
       if (!findClicked) {
-        favoritesMovies.push({
-          movieImg: movieImg.src,
-          movieId,
-          movieTitle,
-          clicked: true
-        })
+        favoritesMovies.push({ ...movie, clicked: true })
         addNewFavoriteMovie()
-        console.log('no está')
+        addFavoriteMovieToSection()
       }
     } else {
       svgImg.src = './svg/likeUnSelected.svg'
       clicked = false
-      const favoritesMoviesUnSelected = favoritesMovies.filter(
-        (favorite) => { console.log(favorite.movieId !== movieId); return favorite.movieId !== movieId }
-      )
+      const favoritesMoviesUnSelected = favoritesMovies.filter((favorite) => {
+        return favorite.id !== movie.id
+      })
       favoritesMovies = favoritesMoviesUnSelected
+      addFavoriteMovieToSection()
       addNewFavoriteMovie()
     }
   }
@@ -112,16 +102,8 @@ function createMovies (movies, container) {
       movieImg.addEventListener('click', (event) => {
         location.hash = `#movie=${movie.id}`
       })
-      const isClicked = favoritesMovies.find((mov) => mov.movieId === movie.id)
-      createFavoriteButton(
-        movieContainer,
-        {
-          movieImg,
-          movieId: movie.id,
-          movieTitle: movie.title
-        },
-        isClicked
-      )
+      const isClicked = favoritesMovies.find((mov) => mov.id === movie.id)
+      createFavoriteButton(movieContainer, movie, isClicked)
       validateImageComplete(movieImg, movieContainer, container)
     } else {
       movieContainer.addEventListener('click', (event) => {
@@ -301,4 +283,14 @@ export async function getOnlyMovie (id) {
   const movies = data
 
   createMovieDetail(movies)
+}
+
+// llamados a local storage
+
+export function addFavoriteMovieToSection () {
+  if (favoritesMovies.length === 0) {
+    favoritesMovieList.innerText = 'Por favor agrega tus peliculas favoritas '
+  } else {
+    createMovies(favoritesMovies, favoritesMovieList)
+  }
 }

@@ -41,7 +41,8 @@ module.exports = {
     html: 'readonly',
     buttonShowMore: 'readonly',
     containerMovies: 'readonly',
-    favorites: 'readonly'
+    favorites: 'readonly',
+    favoritesMovieList: 'readonly'
   },
   rules: {
     'no-unused-vars': 'off'

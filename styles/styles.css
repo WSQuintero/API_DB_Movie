@@ -26,6 +26,7 @@
   --font-weight-title2: 700;
   --font-weight-text1: 400;
   --font-weight-text2: 500;
+  font-size: 62.5%;
 }
 
 html {
@@ -621,7 +622,7 @@ footer {
   width: 100%;
   height: 80%;
   margin-top: 10px;
-  background-color: #2a0646;
+  background-color: var(--purple-light-2);
   display: flex;
   align-items: center;
   gap: 20px;
@@ -630,6 +631,10 @@ footer {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  color: var(--purple-medium-3);
+  justify-content: center;
+  font-weight: 700;
+  font-size: 2.5rem;
 }
 .favorites-movieList .movie-container {
   width: 250px;
@@ -640,12 +645,24 @@ footer {
   position: relative;
   z-index: 0;
 }
+.favorites-movieList .charge-end {
+  width: 250px;
+  height: 90%;
+  flex-shrink: 0;
+  display: flex;
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
+}
+.favorites-movieList .charge-end .movie-img{
+  z-index: 0;
+}
 .favorite__img {
   width: 100%;
   height: 100%;
   background-color: #2e48a3;
   border-radius: 40px;
-  z-index: 1;
+  z-index: 0;
 }
 .favorites__deleteFavorite {
   padding: 15px;

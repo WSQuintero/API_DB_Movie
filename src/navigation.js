@@ -5,7 +5,8 @@ import {
   getMoviesBySearch,
   getTrendingMovies,
   getOnlyMovie,
-  deleteNullImg
+  deleteNullImg,
+  addFavoriteMovieToSection
 
 } from './main.js'
 
@@ -144,4 +145,5 @@ function homePage () {
 
   getTrendingMoviesPreview()
   getCategoriesPreview()
+  addFavoriteMovieToSection()
 }
