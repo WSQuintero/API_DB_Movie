@@ -289,8 +289,14 @@ export async function getOnlyMovie (id) {
 
 export function addFavoriteMovieToSection () {
   if (favoritesMovies.length === 0) {
-    favoritesMovieList.innerText = 'Por favor agrega tus peliculas favoritas '
+    favoritesMovieList.innerHTML = ''
+    const InformativeTextAboutFavoriteMovies = document.createElement('p')
+    InformativeTextAboutFavoriteMovies.innerText =
+      'Por favor agrega tus peliculas favoritas '
+    favoritesMovieList.style.justifyContent = 'center'
+    favoritesMovieList.appendChild(InformativeTextAboutFavoriteMovies)
   } else {
+    favoritesMovieList.style.justifyContent = 'left'
     createMovies(favoritesMovies, favoritesMovieList)
   }
 }

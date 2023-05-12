@@ -535,7 +535,7 @@ footer {
   z-index: 0;
 }
 
-.relatedMovies-scrollContainer .charge-end .like__button--img  {
+.relatedMovies-scrollContainer .charge-end .like__button--img {
   width: 30px;
   height: 30px;
   filter: drop-shadow(-2px 3px 2px #131313);
@@ -632,9 +632,15 @@ footer {
   overflow-y: hidden;
   white-space: nowrap;
   color: var(--purple-medium-3);
-  justify-content: center;
   font-weight: 700;
   font-size: 2.5rem;
+  display: flex;
+  justify-content: left;
+}
+.favorites-movieList p {
+  width: 80%;
+  white-space: normal;
+  text-align: center;
 }
 .favorites-movieList .movie-container {
   width: 250px;
@@ -654,7 +660,7 @@ footer {
   position: relative;
   z-index: 0;
 }
-.favorites-movieList .charge-end .movie-img{
+.favorites-movieList .charge-end .movie-img {
   z-index: 0;
 }
 .favorite__img {
@@ -697,7 +703,7 @@ footer {
   flex-shrink: 0;
   transition: transform 1s ease-in-out;
 }
-.like__button--img:active{
+.like__button--img:active {
   transform: scale(3);
   fill: red;
 }
