@@ -59,8 +59,8 @@ function createFavoriteButton (container, movie, isClicked) {
         addFavoriteMovieToSection()
       }
     } else {
-      svgImg.src = './svg/likeUnSelected.svg'
       clicked = false
+      svgImg.src = './svg/likeUnSelected.svg'
       const favoritesMoviesUnSelected = favoritesMovies.filter((favorite) => {
         return favorite.id !== movie.id
       })
@@ -189,14 +189,22 @@ function createButtonShowMore (container, generalContainer, link) {
 // llamados a API
 export async function getTrendingMoviesPreview () {
   const trendingMovies = 'trending/movie/day'
-  const { data } = await api(trendingMovies)
+  const { data } = await api(trendingMovies, {
+    params: {
+      language: navigator.language || 'es-ES'
+    }
+  })
 
   const movies = data.results
   createMovies(movies, trendingMoviesPreviewList)
 }
 export async function getCategoriesPreview () {
   const categoriesMovies = 'genre/movie/list'
-  const { data } = await api(categoriesMovies)
+  const { data } = await api(categoriesMovies, {
+    params: {
+      language: navigator.language || 'es-ES'
+    }
+  })
   const categories = data.genres
   containerLoad.classList.add('inactive')
 
@@ -208,7 +216,8 @@ export async function getMoviesByCategory (id) {
   const { data } = await api(trendingMovies, {
     params: {
       with_genres: id,
-      page: page1
+      page: page1,
+      language: navigator.language || 'es-ES'
     }
   })
 
@@ -223,7 +232,8 @@ export async function getMoviesBySearch (query) {
   const searchMovies = 'search/movie'
   const { data } = await api(searchMovies, {
     params: {
-      query
+      query,
+      language: navigator.language || 'es-ES'
     }
   })
 
@@ -236,7 +246,8 @@ export async function getTrendingMovies (page) {
 
   const { data } = await api(trendingMovies, {
     params: {
-      page: 1
+      page: 1,
+      language: navigator.language || 'es-ES'
     }
   })
   const movies = data.results
@@ -252,7 +263,8 @@ function getNewPage (container, generalContainer, link) {
 
     const { data } = await api(generalLink, {
       params: {
-        page: page1
+        page: page1,
+        language: navigator.language || 'es-ES'
       }
     })
     page1++
@@ -266,19 +278,31 @@ function getNewPage (container, generalContainer, link) {
 }
 export async function getSimilarMovies (id) {
   const similarMovies = `/movie/${id}/similar`
-  const { data } = await api(similarMovies)
+  const { data } = await api(similarMovies, {
+    params: {
+      language: navigator.language || 'es-ES'
+    }
+  })
   const movies = data.results
   createMovies(movies, relatedMoviesContainer)
 }
 export async function getCategoriesPreviewMovie (genres) {
   const categoriesMovies = `movie/${genres.id}`
-  const { data } = await api(categoriesMovies)
+  const { data } = await api(categoriesMovies, {
+    params: {
+      language: navigator.language || 'es-ES'
+    }
+  })
   const categories = data.genres
   createCategories(categories, movieDetailCategoriesList)
 }
 export async function getOnlyMovie (id) {
   const onlyMovie = `movie/${id}`
-  const { data } = await api(onlyMovie)
+  const { data } = await api(onlyMovie, {
+    params: {
+      language: navigator.language || 'es-ES'
+    }
+  })
   const movies = data
 
   createMovieDetail(movies)
