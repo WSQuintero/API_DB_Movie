@@ -292,6 +292,8 @@ footer {
 /* Categories */
 .category-container {
   width: 45%;
+  display: flex;
+  align-items: center;
 }
 
 .category-title {
@@ -309,8 +311,8 @@ footer {
   background-color: var(--idColor);
   border-radius: 8px;
   margin-right: 8px;
-  width: 8px;
-  height: 8px;
+  width: 15px;
+  height: 15px;
 }
 .category-title2 {
   margin-bottom: 8px;
@@ -722,84 +724,4 @@ footer {
 /* Navigation */
 .inactive {
   display: none;
-}
-
-@media (min-width: 900px) {
-  body {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-  }
-  .header-container {
-    margin-top: 20px;
-    padding-top: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px var(--purple-dark-2) solid;
-    border-radius: 20px;
-    background-color: var(--purple-dark-1);
-  }
-  .header-container button {
-    border: 1px white solid;
-  }
-  .header-title {
-    margin: 0;
-    color:white;
-  }
-  .header-searchForm {
-    width: 300px;
-  }
-  .trendingPreview-movieList {
-    display: flex;
-    justify-content: left;
-  }
-  .trendingPreview-header {
-    padding: 20px;
-    border: 1px var(--purple-dark-2) solid;
-    border-radius: 20px;
-  }
-  .categoriesPreview-title {
-    margin-top: 10px;
-    padding-left: 20px;
-    text-align: left;
-    border: 0.5px var(--purple-dark-2) solid;
-    border-radius: 20px;
-  }
-  .categoriesPreview-list {
-    display: flex;
-    justify-content: space-around;
-  }
-  .categoriesPreview-container {
-    border: 1px var(--purple-dark-2) solid;
-    border-radius: 20px;
-  }
-  .genericList-container .movie-container {
-    position: relative;
-    display: inline-block;
-    width: 260px;
-    z-index: 0;
-  }
-  .genericList-container .charge-end {
-    position: relative;
-    display: inline-block;
-    width: 260px;
-    z-index: 0;
-  }
-
-  .genericList-container.loading .movie-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background-color: rgba(168, 168, 168, 0.5);
-    animation: opacidad 0.4s ease-in-out infinite;
-  }
-  .header-arrow {
-    color: white;
-  }
 }
