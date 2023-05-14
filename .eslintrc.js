@@ -8,43 +8,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
-  rules: {},
-  globals: {
-    headerSection: 'off',
-    trendingPreviewSection: 'off',
-    categoriesPreviewSection: 'off',
-    genericSection: 'off',
-    movieDetailSection: 'off',
-    favorites: 'off',
-    favoritesMovieList: 'off',
-    searchForm: 'off',
-    trendingMoviesPreviewList: 'off',
-    movieContainerTrending: 'off',
-    movieContainerTrendingBefore: 'off',
-    categoriesPreviewList: 'off',
-    movieDetailCategoriesList: 'off',
-    relatedMoviesContainer: 'off',
-    movieDetailGeneralcontainer: 'off',
-    movieDetailGeneralcontainerFlex: 'off',
-    movieDetailContainerImg: 'off',
-    headerContainer: 'off',
-    headerTitle: 'off',
-    arrowBtn: 'off',
-    headerCategoryTitle: 'off',
-    searchFormInput: 'off',
-    searchFormBtn: 'off',
-    trendingBtn: 'off',
-    movieDetailTitle: 'off',
-    movieDetailDescription: 'off',
-    movieDetailScore: 'off',
-    inputSearch: 'off',
-    movieSimilarContainer: 'off',
-    containerLoad: 'off',
-    movieContainer: 'off',
-    html: 'off',
-    footer: 'off',
-    body: 'off',
-    buttonShowMore: 'off',
-    containerMovies: 'off'
+  rules: {
+    'no-unused-vars': 'off',
+    'no-undef': 'off'
   }
 }

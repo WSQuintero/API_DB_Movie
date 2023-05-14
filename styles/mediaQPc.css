@@ -1,0 +1,198 @@
+@media (min-width: 1024px) {
+  body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    position: relative;
+  }
+  main {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .header-container {
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+    padding-top: 0;
+    padding: 0 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px var(--purple-dark-2) solid;
+    border-radius: 20px;
+    background-color: var(--purple-dark-1);
+    position: fixed;
+  }
+  .header-container button {
+    border: 1px white solid;
+  }
+  .header-container--long {
+    position: fixed;
+  }
+  .header-title {
+    margin: 0;
+    color: white;
+  }
+  .header-searchForm {
+    width: 300px;
+  }
+  .header-arrow {
+    position: relative;
+    top: 8px;
+  }
+  .trendingPreview-movieList {
+    display: flex;
+    justify-content: left;
+  }
+  .trendingPreview-container {
+    padding: 0 30px;
+    margin: 20px 0;
+    margin-top: 40px;
+  }
+  .trendingPreview-header {
+    width: 100%;
+    height: 70px;
+    padding: 0 70px;
+    border: 1px var(--purple-dark-2) solid;
+    border-radius: 20px;
+  }
+  .categoriesPreview-title {
+    height: 70px;
+    margin-top: 10px;
+    padding: 0 70px;
+    text-align: left;
+    border: 0.5px var(--purple-dark-2) solid;
+    border-radius: 20px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+  .categoriesPreview-list {
+    width: auto;
+    padding: 0 70px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    border: 1px var(--purple-dark-2) solid;
+    border-radius: 20px;
+    padding: 30px;
+  }
+  .categoriesPreview-container {
+    margin: 20px 0;
+  }
+  .category-container {
+    width: 200px;
+    display: flex;
+    gap: 20px;
+    text-align: center;
+  }
+  .category-title {
+    font-size: 2rem;
+  }
+  .category-title::before {
+    margin-right: 30px;
+  }
+
+  .genericList-container .movie-container {
+    position: relative;
+    display: inline-block;
+    width: 260px;
+    z-index: 0;
+  }
+  .genericList-container .charge-end {
+    position: relative;
+    display: inline-block;
+    width: 260px;
+    z-index: 0;
+  }
+
+  .genericList-container.loading .movie-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(168, 168, 168, 0.5);
+    animation: opacidad 0.4s ease-in-out infinite;
+  }
+  .header-arrow {
+    color: white;
+  }
+  .category-title::before {
+    width: 20px;
+    height: 20px;
+  }
+  .buttonShowMore {
+    margin-top: 50px;
+  }
+  .favorites {
+    padding: 0 20px;
+  }
+  .favorites-header {
+    height: 70px;
+    margin-top: 10px;
+    padding: 0 70px;
+    text-align: left;
+    border: 0.5px var(--purple-dark-2) solid;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .favorites-movieList {
+    border-radius: 20px;
+  }
+
+  .movieDetailFlex {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .movieDetail-generalcontainer {
+    height: auto;
+    margin-top: 130px;
+  }
+
+  .movieDetail-containerImg {
+    height: auto;
+    width: 300px;
+    border-radius: 40px;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .movieDetail-containerImg .like__button{
+   cursor: pointer;
+    position: absolute;
+    z-index: 10;
+    top: 20px;
+  }
+
+  .movieDetail-Img {
+    width: 100%;
+    object-fit: cover;
+    position: relative;
+    border-radius: 40px;
+    z-index: 0;
+  }
+
+  .movieDetail-container {
+    width: 60%;
+    overflow: hidden;
+    margin-top: 0;
+    position: relative;
+    border-radius: 40px;
+    border: 1px solid var(--purple-dark-2);
+  }
+  footer {
+    margin: 0;
+  }
+}
