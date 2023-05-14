@@ -131,4 +131,4 @@ dist
 .pnp.*
 
 .vercel
-secrets.js
+# secrets.js

@@ -7,6 +7,7 @@ const api = axios.create({
     api_key: API_KEY
   }
 })
+
 let page1 = 1
 let favoritesMovies = JSON.parse(localStorage.getItem('favoritesMovies')) || []
 window.addEventListener('resize', toResize)
@@ -75,7 +76,6 @@ function createFavoriteButton (container, movie, isClicked) {
   if (isClicked !== undefined) {
     clicked = false
     clickFavorite()
-    console.log(isClicked)
   }
 }
 function addNewFavoriteMovie () {
@@ -89,23 +89,27 @@ function validateIsClicked (movie) {
 function createMovies (movies, container) {
   container.innerHTML = ''
   const imagesURL = 'https://image.tmdb.org/t/p/w300'
+  console.log(headerSection.id)
 
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
-
     const movieImg = document.createElement('img')
     movieImg.classList.add('movie-img')
     createObserver().observe(movieContainer)
     if (movie.poster_path !== null) {
       movieImg.setAttribute('data-img', `${imagesURL}${movie.poster_path}`)
     } else {
-      console.log('no es diferente')
       movieImg.setAttribute(
         'data-img',
         'https://thumbs.dreamstime.com/b/no-hay-se%C3%B1al-de-imagen-disponible-aislada-sobre-fondo-blanco-signo-aislado-ilustraci%C3%B3n-vectorial-219198729.jpg'
       )
     }
+    arrowBtn.id = headerSection.id
+    headerCategoryTitle.id = headerSection.id
+    movieContainer.id = headerSection.id
+    movieContainer.style.border = '2px solid var(--idColor)'
+    movieContainer.style.padding = '7px'
 
     movieImg.setAttribute('loading', 'lazy')
     movieImg.id = movie.id
@@ -122,6 +126,7 @@ function createMovies (movies, container) {
   })
 }
 function createCategories (categories, container) {
+  console.log(categories)
   container.innerHTML = ''
   categories.forEach((category) => {
     const categoryContainer = document.createElement('div')
@@ -131,7 +136,6 @@ function createCategories (categories, container) {
     categoryContainer.classList.add('category-container')
     categoryTitle.classList.add('category-title')
     categoryTitle.setAttribute('id', `id${category.id}`)
-
     categoryTitle.addEventListener('click', () => {
       location.hash = `#category=${category.id}-${category.name}`
       genericSection.innerHTML = ''
@@ -146,13 +150,25 @@ function createCategories (categories, container) {
 function toResize () {
   if (window.innerWidth <= 600) {
     headerCategoryTitle.innerText = ''
+    headerSection.style.background = 'none'
+  } else {
+    headerSection.style.background = '#0e122d'
+    headerSection.style.color = '#fff'
   }
 }
 
 function createMovieDetail (movies) {
   headerCategoryTitle.classList.add('inactive')
   headerSection.style.position = 'fixed'
+  arrowBtn.id = ''
+  headerCategoryTitle.id = 'headerSection.id'
+  if (window.innerWidth >= 600) {
+    headerSection.style.background = '#0e122d'
+    headerSection.style.color = '#fff'
+    headerSection.id = ''
+  }
 
+  console.log(movies)
   if (movies !== undefined) {
     const imagesURL = 'https://image.tmdb.org/t/p/w500'
     if (movies.poster_path === null) {
@@ -179,7 +195,6 @@ function createMovieDetail (movies) {
     // if (favoriteButtonCorrectMoviePage) {
     //   movieDetailFavoriteButton.src = '../svg/likeSelected.svg'
     // }
-    console.log(validateIsClicked(movies))
     getSimilarMovies(movies.id)
     getCategoriesPreviewMovie(movies)
     createFavoriteButton(
@@ -242,6 +257,7 @@ export async function getMoviesByCategory (id) {
     }
   })
   headerSection.style.position = 'relative'
+
   const movies = data.results
   genericSection.appendChild(containerMovies)
 

@@ -115,12 +115,15 @@ function categoriesPage () {
   searchForm.classList.add('inactive')
   genericSection.classList.remove('inactive')
   movieDetailGeneralcontainer.classList.add('inactive')
-
   trendingPreviewSection.classList.add('inactive')
   categoriesPreviewSection.classList.add('inactive')
   movieDetailSection.classList.add('inactive')
   favorites.classList.add('inactive')
-
+  const idCategory = location.hash.split('=')
+  headerSection.id = `id${idCategory[1].split('-')[0]}`
+  headerSection.style.background = 'var(--idColor)'
+  headerCategoryTitle.style.color = 'var(--idColor2'
+  arrowBtn.style.color = 'var(--idColor2'
   const categoryId = location.hash.replace(/.*category=(\d+)-.*/g, '$1')
   const categoryName = location.hash.replace(/.*category=\d+-(\w+)/g, '$1')
   headerCategoryTitle.innerText = categoryName
@@ -128,6 +131,7 @@ function categoriesPage () {
   getMoviesByCategory(Number(categoryId))
 }
 function homePage () {
+  movieContainer.style.background = ''
   footer.classList.remove('inactive')
   html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
