@@ -5,12 +5,14 @@
     flex-direction: column;
     align-content: space-between;
   }
-  main{
+  main {
+    height: auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
   .header-container {
+    width: 100%;
     height: 100px;
     margin-top: 20px;
     padding-top: 0;
@@ -21,9 +23,13 @@
     border: 1px var(--purple-dark-2) solid;
     border-radius: 20px;
     background-color: var(--purple-dark-1);
+    position: relative;
   }
   .header-container button {
     border: 1px white solid;
+  }
+  .header-container--long {
+    position: fixed;
   }
   .header-title {
     margin: 0;
@@ -40,8 +46,10 @@
     display: flex;
     justify-content: left;
   }
-   .trendingPreview-container {
-    padding: 30px;
+  .trendingPreview-container {
+    padding: 0 30px;
+    margin: 20px 0;
+    margin-top: 40px;
   }
   .trendingPreview-header {
     width: 100%;
@@ -58,7 +66,7 @@
     border: 0.5px var(--purple-dark-2) solid;
     border-radius: 20px;
     display: flex;
-    justify-content: right;
+    justify-content: left;
     align-items: center;
   }
   .categoriesPreview-list {
@@ -67,6 +75,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
+    border: 1px var(--purple-dark-2) solid;
+    border-radius: 20px;
+    padding: 30px;
+  }
+  .categoriesPreview-container {
+    margin: 20px 0;
   }
   .category-container {
     width: 200px;
@@ -77,15 +91,10 @@
   .category-title {
     font-size: 2rem;
   }
-    .category-title::before {
-      margin-right: 30px;
-    }
-  .categoriesPreview-list {
-    border: 1px var(--purple-dark-2) solid;
-    border-radius: 20px;
-
-    padding: 30px;
+  .category-title::before {
+    margin-right: 30px;
   }
+
   .genericList-container .movie-container {
     position: relative;
     display: inline-block;
@@ -118,5 +127,40 @@
   }
   .buttonShowMore {
     margin-top: 50px;
+  }
+  .favorites {
+    padding: 0 20px;
+  }
+  .favorites-header {
+    height: 70px;
+    margin-top: 10px;
+    padding: 0 70px;
+    text-align: left;
+    border: 0.5px var(--purple-dark-2) solid;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .favorites-movieList {
+    border-radius: 20px;
+  }
+  .movieDetail-generalcontainer {
+  }
+ .movieDetail-generalcontainerFlex {
+    display: flex;
+  }
+
+  .movieDetail-containerImg {
+  }
+
+
+  .movieDetail-Img {
+  }
+
+  .movieDetail-container {
+  }
+  footer {
+    margin: 0;
   }
 }

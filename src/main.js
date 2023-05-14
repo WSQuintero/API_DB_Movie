@@ -8,8 +8,9 @@ const api = axios.create({
   }
 })
 let page1 = 1
-
 let favoritesMovies = JSON.parse(localStorage.getItem('favoritesMovies')) || []
+window.addEventListener('resize', toResize)
+
 function createObserver () {
   const callback = (entries, observer) => {
     entries.forEach((entry) => {
@@ -46,6 +47,7 @@ function createFavoriteButton (container, movie, isClicked) {
   container.appendChild(likeButton)
 
   svgImg.addEventListener('click', clickFavorite)
+
   const findClicked = favoritesMovies.some((id) => id.id === movie.id)
 
   function clickFavorite () {
@@ -73,11 +75,15 @@ function createFavoriteButton (container, movie, isClicked) {
   if (isClicked !== undefined) {
     clicked = false
     clickFavorite()
+    console.log(isClicked)
   }
 }
 function addNewFavoriteMovie () {
   const favoriteMovie = JSON.stringify(favoritesMovies)
   localStorage.setItem('favoritesMovies', favoriteMovie)
+}
+function validateIsClicked (movie) {
+  return favoritesMovies.find((mov) => mov.id === movie.id)
 }
 
 function createMovies (movies, container) {
@@ -93,28 +99,24 @@ function createMovies (movies, container) {
     createObserver().observe(movieContainer)
     if (movie.poster_path !== null) {
       movieImg.setAttribute('data-img', `${imagesURL}${movie.poster_path}`)
-      movieImg.setAttribute('loading', 'lazy')
-      movieImg.id = movie.id
-      movieImg.setAttribute('alt', movie.title)
-      movieContainer.appendChild(movieImg)
-
-      movieImg.addEventListener('click', (event) => {
-        location.hash = `#movie=${movie.id}`
-      })
-      const isClicked = favoritesMovies.find((mov) => mov.id === movie.id)
-      createFavoriteButton(movieContainer, movie, isClicked)
-      validateImageComplete(movieImg, movieContainer, container)
     } else {
-      movieContainer.addEventListener('click', (event) => {
-        location.hash = `#movie=${movie.id}`
-      })
-      movieContainer.innerHTML = `<h2>${movie.title}</h2>`
-      movieContainer.classList.add('movie-else-img')
-      movieContainer.style.background = '#2a0646'
-      movieContainer.style.display = 'grid'
-      movieContainer.style.placeItems = 'center'
-      createFavoriteButton(movieContainer)
+      console.log('no es diferente')
+      movieImg.setAttribute(
+        'data-img',
+        'https://thumbs.dreamstime.com/b/no-hay-se%C3%B1al-de-imagen-disponible-aislada-sobre-fondo-blanco-signo-aislado-ilustraci%C3%B3n-vectorial-219198729.jpg'
+      )
     }
+
+    movieImg.setAttribute('loading', 'lazy')
+    movieImg.id = movie.id
+    movieImg.setAttribute('alt', movie.title)
+    movieContainer.appendChild(movieImg)
+
+    movieImg.addEventListener('click', (event) => {
+      location.hash = `#movie=${movie.id}`
+    })
+    createFavoriteButton(movieContainer, movie, validateIsClicked(movie))
+    validateImageComplete(movieImg, movieContainer, container)
 
     container.appendChild(movieContainer)
   })
@@ -140,41 +142,60 @@ function createCategories (categories, container) {
     container.appendChild(categoryContainer)
   })
 }
-function createNullImg (movies) {
-  const tittle = document.createElement('h2')
-  tittle.classList.remove('inactive')
-  tittle.classList.add('tittle')
-  headerSection.style.background = '#2a0646'
-  tittle.innerText = movies.original_title
-  tittle.style.color = 'white'
-  tittle.style.textAlign = 'center'
-  tittle.style.fontSize = '60px'
-  headerSection.appendChild(tittle)
-  headerSection.style.color = 'white'
-}
-export function deleteNullImg () {
-  const h2 = document.querySelector('header h2')
-  if (h2) {
-    h2.remove()
+
+function toResize () {
+  if (window.innerWidth <= 600) {
+    headerCategoryTitle.innerText = ''
   }
 }
+
 function createMovieDetail (movies) {
+  headerCategoryTitle.classList.add('inactive')
+  headerSection.style.position = 'fixed'
+
   if (movies !== undefined) {
     const imagesURL = 'https://image.tmdb.org/t/p/w500'
-    if (movies.poster_path !== null) {
-      deleteNullImg()
-      headerSection.style.background = `linear-gradient( 180deg, rgba(0, 0, 0, 0.35) 7.27%, rgba(0, 0, 0, 0) 40.17%),
-    url(${imagesURL}${movies.poster_path}) `
+    if (movies.poster_path === null) {
+      movieDetailContainerImg.innerHTML =
+        '<img class="movieDetail-Img" src="https://thumbs.dreamstime.com/b/no-hay-se%C3%B1al-de-imagen-disponible-aislada-sobre-fondo-blanco-signo-aislado-ilustraci%C3%B3n-vectorial-219198729.jpg">'
     } else {
-      deleteNullImg()
-      createNullImg(movies)
+      movieDetailContainerImg.innerHTML = `<img class="movieDetail-Img" src="${imagesURL}${movies.poster_path}">`
     }
+
+    movieDetailGeneralcontainer.classList.remove('inactive')
+
+    if (window.innerWidth >= '600') {
+      headerCategoryTitle.classList.remove('inactive')
+      headerCategoryTitle.innerText = movies.title
+    } else {
+      headerCategoryTitle.classList.add('inactive')
+      headerCategoryTitle.innerText = ''
+    }
+
     movieDetailTitle.innerText = movies.title
     movieDetailDescription.innerText = movies.overview
     movieDetailScore.innerText = movies.vote_average
 
+    // if (favoriteButtonCorrectMoviePage) {
+    //   movieDetailFavoriteButton.src = '../svg/likeSelected.svg'
+    // }
+    console.log(validateIsClicked(movies))
     getSimilarMovies(movies.id)
     getCategoriesPreviewMovie(movies)
+    createFavoriteButton(
+      movieDetailContainerImg,
+      movies,
+      createFavoriteButton(movieContainer, movies, validateIsClicked(movies))
+    )
+  }
+  const movieDetailFavoriteButton = document.querySelector(
+    ' .movieDetail-containerImg .like__button .like__button--img'
+  )
+  const favoriteButtonCorrectMoviePage = favoritesMovies.some((a) => {
+    return a.id === movies.id
+  })
+  if (favoriteButtonCorrectMoviePage) {
+    movieDetailFavoriteButton.src = '../svg/likeSelected.svg'
   }
 }
 
@@ -220,7 +241,7 @@ export async function getMoviesByCategory (id) {
       language: navigator.language || 'es-ES'
     }
   })
-
+  headerSection.style.position = 'relative'
   const movies = data.results
   genericSection.appendChild(containerMovies)
 

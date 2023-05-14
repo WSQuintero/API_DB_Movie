@@ -5,9 +5,7 @@ import {
   getMoviesBySearch,
   getTrendingMovies,
   getOnlyMovie,
-  deleteNullImg,
   addFavoriteMovieToSection
-
 } from './main.js'
 
 let count = 0
@@ -22,7 +20,6 @@ trendingBtn.addEventListener('click', () => {
 })
 arrowBtn.addEventListener('click', () => {
   if (count > 1) {
-    deleteNullImg()
     history.back()
     arrowBtn.classList.remove('header-arrow--white')
     count--
@@ -53,7 +50,7 @@ function trendsPage () {
   headerTitle.classList.add('inactive')
   headerCategoryTitle.classList.remove('inactive')
   searchForm.classList.add('inactive')
-
+  movieDetailGeneralcontainer.classList.add('inactive')
   trendingPreviewSection.classList.add('inactive')
   categoriesPreviewSection.classList.add('inactive')
   genericSection.classList.remove('inactive')
@@ -79,6 +76,7 @@ function searchPage () {
   genericSection.classList.remove('inactive')
   movieDetailSection.classList.add('inactive')
   favorites.classList.add('inactive')
+  movieDetailGeneralcontainer.classList.add('inactive')
 
   const movie = location.hash.split('=')[1]
   count++
@@ -86,7 +84,7 @@ function searchPage () {
 }
 function moviePage (movie) {
   window.scrollTo(0, 0)
-  html.style.background = 'rgb(219, 219, 219)'
+  html.style.background = 'white'
   footer.classList.add('inactive')
   const idMovie = location.hash.split('=')
   headerSection.classList.add('header-container--long')
@@ -100,6 +98,7 @@ function moviePage (movie) {
   genericSection.classList.add('inactive')
   movieDetailSection.classList.remove('inactive')
   favorites.classList.add('inactive')
+  movieDetailGeneralcontainer.classList.add('inactive')
 
   count++
   getOnlyMovie(idMovie[1])
@@ -115,6 +114,7 @@ function categoriesPage () {
   headerCategoryTitle.classList.remove('inactive')
   searchForm.classList.add('inactive')
   genericSection.classList.remove('inactive')
+  movieDetailGeneralcontainer.classList.add('inactive')
 
   trendingPreviewSection.classList.add('inactive')
   categoriesPreviewSection.classList.add('inactive')
@@ -132,6 +132,7 @@ function homePage () {
   html.style.background = '#5c218a'
   headerSection.classList.remove('header-container--long')
   headerSection.style.background = ''
+  headerSection.style.position = 'relative'
   arrowBtn.classList.add('inactive')
   arrowBtn.classList.remove('header-arrow--white')
   headerTitle.classList.remove('inactive')
@@ -142,6 +143,7 @@ function homePage () {
   genericSection.classList.add('inactive')
   movieDetailSection.classList.add('inactive')
   favorites.classList.remove('inactive')
+  movieDetailGeneralcontainer.classList.add('inactive')
 
   getTrendingMoviesPreview()
   getCategoriesPreview()

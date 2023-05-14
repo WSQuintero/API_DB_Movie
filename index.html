@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles/normalize.css" />
     <link rel="stylesheet" href="./styles/styles.css" />
     <link rel="stylesheet" href="./styles/mediaQ.css" />
+    <link rel="stylesheet" href="./styles/mediaQPc.css" />
     <title>Movies</title>
   </head>
   <body>
@@ -39,18 +40,23 @@
         id="genericList"
         class="genericList-container inactive"
       ></section>
-      <section id="movieDetail" class="movieDetail-container inactive">
-        <h1 class="movieDetail-title">*********</h1>
-        <span class="movieDetail-score">*.*</span>
-        <p class="movieDetail-description">
-          Wisecracking mercenary Deadpool battles the evil and powerful Cable
-          and other bad guys to save a boy's life.
-        </p>
-        <article class="categories-list"></article>
-        <article class="relatedMovies-container">
-          <h2 class="relatedMovies-title">Películas similares</h2>
-          <div class="relatedMovies-scrollContainer"></div>
-        </article>
+      <section class="movieDetail-generalcontainer inactive">
+        <div class="movieDetailFlex">
+          <div class="movieDetail-containerImg"></div>
+          <div id="movieDetail" class="movieDetail-container">
+            <h1 class="movieDetail-title">*********</h1>
+            <span class="movieDetail-score">*.*</span>
+            <p class="movieDetail-description">
+              Wisecracking mercenary Deadpool battles the evil and powerful
+              Cable and other bad guys to save a boy's life.
+            </p>
+            <article class="categories-list"></article>
+            <article class="relatedMovies-container">
+              <h2 class="relatedMovies-title">Películas similares</h2>
+              <div class="relatedMovies-scrollContainer"></div>
+            </article>
+          </div>
+        </div>
       </section>
       <section class="favorites">
         <div class="favorites-header">

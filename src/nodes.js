@@ -27,8 +27,19 @@ const movieDetailCategoriesList = document.querySelector(
 const relatedMoviesContainer = document.querySelector(
   '.relatedMovies-scrollContainer'
 )
+const movieDetailGeneralcontainer = document.querySelector(
+  '.movieDetail-generalcontainer'
+)
+
+const movieDetailGeneralcontainerFlex = document.querySelector(
+  ' .movieDetail-generalcontainerFlex'
+)
+const movieDetailContainerImg = document.querySelector(
+  '.movieDetail-containerImg'
+)
 
 // Elements
+const headerContainer = document.querySelector('.header-container')
 const headerTitle = document.querySelector('.header-title')
 const arrowBtn = document.querySelector('.header-arrow')
 const headerCategoryTitle = document.querySelector(
