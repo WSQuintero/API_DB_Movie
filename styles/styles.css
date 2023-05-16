@@ -170,11 +170,11 @@ footer {
 .header-container--long {
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.35) 15.27%,
+    rgba(0, 0, 0, 0.65) 15.27%,
     rgba(0, 0, 0, 0) 55.17%
   );
   background-size: cover !important;
-  height: 380px;
+  height: 280px;
   top: 0;
   width: 100%;
     position: absolute;
