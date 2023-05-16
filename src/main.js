@@ -204,7 +204,7 @@ function createMovieDetail (movies) {
     return a.id === movies.id
   })
   if (favoriteButtonCorrectMoviePage) {
-    movieDetailFavoriteButton.src = '/svg/likeSelected.svg'
+    movieDetailFavoriteButton.src = './svg/likeSelected.svg'
   }
 }
 
