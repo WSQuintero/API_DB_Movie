@@ -35,7 +35,6 @@ function validateImageComplete (img, containerImg, generalContainer) {
     }
   })
 }
-
 function createFavoriteButton (container, movie, isClicked) {
   const likeButton = document.createElement('div')
   const svgImg = document.createElement('img')
@@ -85,7 +84,6 @@ function addNewFavoriteMovie () {
 function validateIsClicked (movie) {
   return favoritesMovies.find((mov) => mov.id === movie.id)
 }
-
 function createMovies (movies, container) {
   container.innerHTML = ''
   const imagesURL = 'https://image.tmdb.org/t/p/w300'
@@ -144,7 +142,6 @@ function createCategories (categories, container) {
     container.appendChild(categoryContainer)
   })
 }
-
 function toResize () {
   if (window.innerWidth <= 600) {
     headerCategoryTitle.innerText = ''
@@ -154,7 +151,6 @@ function toResize () {
     headerSection.style.color = '#fff'
   }
 }
-
 function createMovieDetail (movies) {
   headerCategoryTitle.classList.add('inactive')
   headerSection.style.position = 'fixed'
@@ -207,7 +203,6 @@ function createMovieDetail (movies) {
     movieDetailFavoriteButton.src = './svg/likeSelected.svg'
   }
 }
-
 function createButtonShowMore (container, generalContainer, link) {
   buttonShowMore.classList.add('buttonShowMore')
   buttonShowMore.innerText = 'Mostrar más'
