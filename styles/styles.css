@@ -52,6 +52,8 @@ main {
 }
 header {
   z-index: 10;
+  display: flex;
+align-items: center;
 }
 h1,
 h2,
@@ -161,6 +163,8 @@ footer {
   position: fixed;
     display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 
 .header-container--long {
@@ -198,7 +202,6 @@ footer {
 }
 
 .header-title {
-  margin-bottom: 16px;
 }
 
 .header-arrow {
@@ -216,8 +219,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 70%;
   flex-wrap: nowrap;
+  border: 1px solid var(--purple-dark-2);
+  border-radius: 10px;
+  
 }
 
 .header-searchForm input {
@@ -722,6 +728,16 @@ footer {
   width: 100%;
   object-fit: cover;
   z-index: 0;
+}
+.movieDetail-containerImg::before {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 15.27%,
+    rgba(0, 0, 0, 0) 29.17%
+  );
+  height: 280px;
+  top: 0;
+  width: 100%;
 }
 .movieDetail-Img {
   width: 100%;
