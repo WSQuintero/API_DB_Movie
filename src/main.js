@@ -89,7 +89,7 @@ function validateIsClicked (movie) {
 function createMovies (movies, container) {
   container.innerHTML = ''
   const imagesURL = 'https://image.tmdb.org/t/p/w300'
-  
+
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
@@ -204,7 +204,7 @@ function createMovieDetail (movies) {
     return a.id === movies.id
   })
   if (favoriteButtonCorrectMoviePage) {
-    movieDetailFavoriteButton.src = '../svg/likeSelected.svg'
+    movieDetailFavoriteButton.src = '/svg/likeSelected.svg'
   }
 }
 
