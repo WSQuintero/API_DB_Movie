@@ -171,12 +171,15 @@ footer {
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.35) 15.27%,
-    rgba(0, 0, 0, 0) 29.17%
+    rgba(0, 0, 0, 0) 55.17%
   );
   background-size: cover !important;
-  height: 280px;
+  height: 380px;
   top: 0;
   width: 100%;
+    position: absolute;
+    z-index: 1;
+
 }
 .header-container--long2 {
   height: 480px;
@@ -210,8 +213,11 @@ footer {
   margin-bottom: 16px;
   cursor: pointer;
   display: inline-block;
+  z-index: 10;
 }
 .header-arrow--white {
+  top: 20px;
+  position: absolute;
   color: var(--purple-light-1);
 }
 
@@ -310,6 +316,7 @@ footer {
 
 .category-title {
   margin-bottom: 8px;
+  margin-left: 40px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -322,7 +329,7 @@ footer {
   /* TODO: cambiar color por ID de la categoría */
   background-color: var(--idColor);
   border-radius: 8px;
-  margin-right: 8px;
+  margin-right: 3px;
   width: 15px;
   height: 15px;
 }
@@ -339,7 +346,7 @@ footer {
   /* TODO: cambiar color por ID de la categoría */
   background-color: rgb(133, 133, 133);
   border-radius: 8px;
-  margin-right: 8px;
+  margin-right: 3px;
   width: 8px;
   height: 8px;
 }

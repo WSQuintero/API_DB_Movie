@@ -93,7 +93,7 @@
     font-size: 2rem;
   }
   .category-title::before {
-    margin-right: 30px;
+    margin-right: 10px;
   }
 
   .genericList-container .movie-container {

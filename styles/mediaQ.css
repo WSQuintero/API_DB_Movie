@@ -17,13 +17,11 @@
     margin-top: 20px;
     padding-top: 0;
     padding: 0 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border: 1px var(--purple-dark-2) solid;
     border-radius: 20px;
     background-color: var(--purple-dark-1);
     position: relative;
+    
   }
   .header-container button {
     border: 1px white solid;
@@ -92,7 +90,7 @@
     font-size: 2rem;
   }
   .category-title::before {
-    margin-right: 30px;
+    margin-right: 10px;
   }
 
   .genericList-container .movie-container {
@@ -121,6 +119,10 @@
   .header-arrow {
     color: white;
   }
+  .header-arrow--white {
+  top: none;
+  position: relative;
+}
   .category-title::before {
     width: 20px;
     height: 20px;

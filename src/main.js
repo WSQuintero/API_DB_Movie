@@ -89,8 +89,7 @@ function validateIsClicked (movie) {
 function createMovies (movies, container) {
   container.innerHTML = ''
   const imagesURL = 'https://image.tmdb.org/t/p/w300'
-  console.log(headerSection.id)
-
+  
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
@@ -126,7 +125,6 @@ function createMovies (movies, container) {
   })
 }
 function createCategories (categories, container) {
-  console.log(categories)
   container.innerHTML = ''
   categories.forEach((category) => {
     const categoryContainer = document.createElement('div')
@@ -168,7 +166,6 @@ function createMovieDetail (movies) {
     headerSection.id = ''
   }
 
-  console.log(movies)
   if (movies !== undefined) {
     const imagesURL = 'https://image.tmdb.org/t/p/w500'
     if (movies.poster_path === null) {
@@ -182,19 +179,16 @@ function createMovieDetail (movies) {
 
     if (window.innerWidth >= '600') {
       headerCategoryTitle.classList.remove('inactive')
-      headerCategoryTitle.innerText = movies.title
+      headerCategoryTitle.innerText = decodeURIComponent(movies.title)
     } else {
       headerCategoryTitle.classList.add('inactive')
       headerCategoryTitle.innerText = ''
     }
 
-    movieDetailTitle.innerText = movies.title
-    movieDetailDescription.innerText = movies.overview
+    movieDetailTitle.innerText = decodeURIComponent(movies.title)
+    movieDetailDescription.innerText = decodeURIComponent(movies.overview)
     movieDetailScore.innerText = movies.vote_average
 
-    // if (favoriteButtonCorrectMoviePage) {
-    //   movieDetailFavoriteButton.src = '../svg/likeSelected.svg'
-    // }
     getSimilarMovies(movies.id)
     getCategoriesPreviewMovie(movies)
     createFavoriteButton(
